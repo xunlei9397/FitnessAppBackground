@@ -188,7 +188,7 @@ public class RegisterInterface {
 	}
 
 	/*
-	 * 用于上传个人头像
+	 * 用于下载个人头像
 	 */
 	@At("/downloadPersonIcon")
 	@Ok("json")
