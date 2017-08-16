@@ -77,6 +77,34 @@ public class RegisterDao4Common implements RegisterDaoIf {
 		
 		return check;
 	}
+
+	@Override
+	public void uploadPerPic(String userId, String personPicture) {
+		Sql sql=Sqls.create(" update PersonInfoTab set  personPicture=@personPicture where  userId=@userId");
+		sql.params().set("personPicture", personPicture);
+	    sql.params().set("userId", userId);
+		sql.setCallback(Sqls.callback.entities());
+		sql.setEntity(defaultDao.getEntity(PersonInfoTab.class));
+		defaultDao.execute(sql);	
+	}
+
+	@Override
+	public String downLoadPerPic(String userId) {
+		Sql sql = Sqls.create("SELECT personPicture FROM PersonInfoTab WHERE userId=@userId");
+	    sql.params().set("userId", userId);
+	    sql.setCallback(new SqlCallback() {
+	        public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
+	            List<String> list = new LinkedList<String>();
+	            while (rs.next()){
+	            list.add(rs.getString("personPicture"));
+	            }
+	            return list;
+	        }
+	    });
+	    defaultDao.execute(sql);
+	    String address=sql.getList(String.class).get(0);
+		return address;
+	}
 	
 	
 }

@@ -11,4 +11,8 @@ public interface RegisterDaoIf {
 	
 	boolean  register(String qqNumber,String userId);
  	
+	void uploadPerPic(String userId,String personPicture);
+	
+	String downLoadPerPic(String userId);
+	
 }

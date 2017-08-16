@@ -40,6 +40,20 @@ public class RegisterService  implements RegisterMbean {
 	}
 
 
+	@Override
+	public void uploadPerIcon(String userId, String personPicture) {
+		// TODO Auto-generated method stub
+		registerDao4Common.uploadPerPic(userId, personPicture);
+	}
+
+
+	@Override
+	public String downLoadPerIcon(String userId) {
+		// TODO Auto-generated method stub
+		return registerDao4Common.downLoadPerPic(userId);
+	}
+
+
 	
 
 }

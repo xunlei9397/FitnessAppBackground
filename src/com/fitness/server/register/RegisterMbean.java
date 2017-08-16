@@ -11,4 +11,9 @@ public interface RegisterMbean {
 	
 	boolean queryRegister(String qqNumber,String userId);
 	
+	void uploadPerIcon(String userId,String personPicture);
+	
+	String downLoadPerIcon(String userId);
+	
+	
 }
