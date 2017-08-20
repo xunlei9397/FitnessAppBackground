@@ -23,6 +23,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -45,7 +46,7 @@ public class RegisterInterface {
 	
 	private Map<String,String> character;
 	
-
+	Logger logger = Logger.getLogger(RegisterInterface.class.getName());
 	
 	
 	
@@ -65,7 +66,7 @@ public class RegisterInterface {
 			List<PersonInfoTab> personInfo=new ArrayList<PersonInfoTab>();
 			PersonInfoTab pt=new PersonInfoTab();
 			for(String a:character.keySet()){
-				pt.setUserId(Integer.valueOf(character.get("userId")));
+				//pt.setUserId(Integer.valueOf(character.get("userId")));
 				pt.setQqNumber(Integer.valueOf(character.get("qqNumber")));
 				pt.setSignature(character.get("signature"));
 				pt.setPhoneNumber(Integer.valueOf(character.get("phoneNumber")));
@@ -85,6 +86,7 @@ public class RegisterInterface {
 			reg.insertPersonInfo(personInfo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			logger.error("register:"+e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -104,6 +106,7 @@ public class RegisterInterface {
 	     	per.addAll(reg.queryAlls(qqNumber, userid));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			logger.error("queryperinfo:"+e.getMessage());
 			e.printStackTrace();
 		}
 		return per;
@@ -114,7 +117,14 @@ public class RegisterInterface {
 	@Ok("json")
 	public boolean checkUserExist(@Param("qqNumber")String qqNumber,@Param("userid")String userid){
 		
-		boolean check=reg.queryRegister(qqNumber, userid);
+		boolean check = false;
+		try {
+			check = reg.queryRegister(qqNumber, userid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("checkUserExist:"+e.getMessage());
+			e.printStackTrace();
+		}
 		
 		
 		return check;	
@@ -134,10 +144,7 @@ public class RegisterInterface {
 		// 设置文件上传路径
 		String upload = "../personIcon/"+userId;
 		//此处判断若文件夹不存在则创建
-		File f=new File(upload);
-		if(!f.exists()){
-			f.mkdirs();
-		}
+		
 		// 获取系统默认的临时文件保存路径，该路径为Tomcat根目录下的temp文件夹
 		String temp = System.getProperty("java.io.tmpdir");
 		// 设置缓冲区大小为 1M
@@ -168,6 +175,13 @@ public class RegisterInterface {
 					reg.uploadPerIcon(userId, upload+"/"+filename);
 					// 以流的形式返回上传文件的数据内容
 					InputStream in = item.getInputStream();
+					
+					File f=new File(upload);
+					if(reg.downLoadPerIcon(userId).length()>0){
+					if(!f.exists()){
+						f.mkdirs();
+					}
+					}
 					// 创建一个向指定 File 对象表示的文件中写入数据的文件输出流
 					FileOutputStream outs = new FileOutputStream(new File(upload, filename));
 					int len = 0;
@@ -183,6 +197,7 @@ public class RegisterInterface {
 				}
 			}
 		} catch (FileUploadException e) {
+			logger.error("uploadPersonIcon:"+e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -222,7 +237,7 @@ public class RegisterInterface {
 				}
 			}
 		} catch (Exception e) {
-
+			logger.error("downloadPersonIcon:"+e.getMessage());
 		}
 	}
 	
