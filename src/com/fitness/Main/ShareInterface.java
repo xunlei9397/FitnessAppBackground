@@ -194,9 +194,9 @@ public class ShareInterface {
 					address.setOpenid(openid);
 					address.setSsid(ssid);
 					if (isPic) {
-						address.setPicAddress("http://localhost:"+request.getLocalPort()+upload + "/" + filename);
+						address.setPicAddress("http://47.94.149.197:"+request.getLocalPort()+upload + "/" + filename);
 					} else {
-						address.setVidAddress("http://localhost:"+request.getLocalPort()+upload + "/" + filename);
+						address.setVidAddress("http://47.94.149.197:"+request.getLocalPort()+upload + "/" + filename);
 					}
 					shareInfo.updateAddressServer(address, isPic);
 					// 以流的形式返回上传文件的数据内容
