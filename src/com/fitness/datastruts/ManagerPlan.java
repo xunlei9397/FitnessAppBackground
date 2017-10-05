@@ -2,6 +2,10 @@ package com.fitness.datastruts;
 
 import java.util.Date;
 
+import org.nutz.dao.entity.annotation.Table;
+
+//记录 发布者发布的课程表
+@Table("managerPlan")
 public class ManagerPlan {
 
 	private int userId;

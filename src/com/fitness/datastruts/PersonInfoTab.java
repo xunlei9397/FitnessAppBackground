@@ -12,6 +12,7 @@ public class PersonInfoTab {
 	/*
 	 *本实体类是用户个人信息的一些属性，注册时往此处存，基本信息从此处取
 	 *用户id
+	 *微信openid
 	 *qq号
 	 *手机号
 	 *密码
@@ -26,6 +27,8 @@ public class PersonInfoTab {
 	 *个人头像
 	 */
 	private int userId;
+	
+	private String openid;
 	
 	private int qqNumber;
 	
@@ -184,13 +187,22 @@ public class PersonInfoTab {
 		this.weiBoId = weiBoId;
 	}
 
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
 	@Override
 	public String toString() {
-		return "PersonInfoTab [userId=" + userId + ", qqNumber=" + qqNumber + ", weiXinId=" + weiXinId + ", weiBoId="
-				+ weiBoId + ", phoneNumber=" + phoneNumber + ", password=" + password + ", nickName=" + nickName
-				+ ", gender=" + gender + ", area=" + area + ", signature=" + signature + ", birthDay=" + birthDay
-				+ ", coachRecord=" + coachRecord + ", orgnization=" + orgnization + ", evalute=" + evalute
-				+ ", personPicture=" + personPicture + "]";
+		return "PersonInfoTab [userId=" + userId + ", openid=" + openid + ", qqNumber=" + qqNumber + ", weiXinId="
+				+ weiXinId + ", weiBoId=" + weiBoId + ", phoneNumber=" + phoneNumber + ", password=" + password
+				+ ", nickName=" + nickName + ", gender=" + gender + ", area=" + area + ", signature=" + signature
+				+ ", birthDay=" + birthDay + ", coachRecord=" + coachRecord + ", orgnization=" + orgnization
+				+ ", evalute=" + evalute + ", personPicture=" + personPicture + "]";
 	}
 		
 	

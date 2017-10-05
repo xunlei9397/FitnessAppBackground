@@ -37,9 +37,6 @@ import com.fitness.server.register.RegisterService;
 @IocBean
 @At("/registerInterface")
 public class RegisterInterface {
-
-	@Inject("refer:defaultDao")
-	private Dao defaultDao;
 	
 	@Inject("refer:registerService")
 	private RegisterService reg;
@@ -52,7 +49,7 @@ public class RegisterInterface {
 	
 	/*
 	 *此方法用于插入个人注册信息 
-	 * register.eo?userId=1&qqNumber=888888&signature=1&phoneNumber=1&personPicture=1&password=1&orgnization=1&nickName=1&gender=1&
+	 * register.eo?userId=1&openid=5526gfghbb&qqNumber=888888&signature=1&phoneNumber=1&personPicture=1&password=1&orgnization=1&nickName=1&gender=1&
 	 * evalute=1&coachRecord=1&birthDay=1&area=1
 	 */
 	@At("/register")
@@ -67,6 +64,7 @@ public class RegisterInterface {
 			PersonInfoTab pt=new PersonInfoTab();
 			for(String a:character.keySet()){
 				//pt.setUserId(Integer.valueOf(character.get("userId")));
+				pt.setOpenid(character.get("Openid"));
 				pt.setQqNumber(Integer.valueOf(character.get("qqNumber")));
 				pt.setSignature(character.get("signature"));
 				pt.setPhoneNumber(Integer.valueOf(character.get("phoneNumber")));
