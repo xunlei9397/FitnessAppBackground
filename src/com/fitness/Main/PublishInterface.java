@@ -129,4 +129,20 @@ public class PublishInterface {
 		return b;
 	}
 	
+	@At("/fitObjectInt")
+	@Ok("json")
+	public List<String> fitObjectInt() {
+		List<String> list=new ArrayList<>();
+		try {
+			list=publish.fitObjectServer();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("editEvaluteInt"+e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+	
+	
 }

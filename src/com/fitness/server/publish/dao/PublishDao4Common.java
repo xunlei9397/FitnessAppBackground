@@ -108,4 +108,22 @@ public class PublishDao4Common implements PublishDaoIf {
 		defaultdao.insert(fitRoom);
 	}
 
+	@Override
+	public List<String> fitObject() {
+		// TODO Auto-generated method stub
+		Sql sql = null;
+		sql = Sqls.create("SELECT name FROM fitobject");
+		sql.setCallback(new SqlCallback() {
+			public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
+				List<String> list = new LinkedList<>();
+				while (rs.next()) {
+					list.add(rs.getString("name"));
+				}
+				return list;
+			}
+		});
+		defaultdao.execute(sql);
+		return sql.getList(String.class);
+	}
+
 }

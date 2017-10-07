@@ -32,7 +32,6 @@ public class Publish {
 	 * 任务是否被接收YN
 	 * 教练给的评价evalute:分为差评，中评，好评，积分制。
 	 * */
-	
 	@Name
 	private String objectid;
 	

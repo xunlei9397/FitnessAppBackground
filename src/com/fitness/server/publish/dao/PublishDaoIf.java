@@ -1,5 +1,7 @@
 package com.fitness.server.publish.dao;
 
+import java.util.List;
+
 import com.fitness.datastruts.FitRoom;
 import com.fitness.datastruts.Publish;
 
@@ -14,6 +16,7 @@ public interface PublishDaoIf {
 	 * 添加经度、纬度、地图级别
 	 * 将用户evalute字段的数值加起来，并返回
 	 * 发布者填写健身房信息
+	 * 为课程下拉列表提供课程名称
 	 * */
 	
 	//发布课程召教练
@@ -38,4 +41,6 @@ public interface PublishDaoIf {
 	String getScore(String openid);
 	
 	void addFitRoomInfo(FitRoom fitRoom);
+	
+	List<String> fitObject();
 }

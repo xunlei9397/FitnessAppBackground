@@ -1,5 +1,7 @@
 package com.fitness.server.publish;
 
+import java.util.List;
+
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 
@@ -55,6 +57,14 @@ public class PublishService implements PublishMbean {
 	public void addFitRoomServer(FitRoom fitRoom) {
 		// TODO Auto-generated method stub
 		publish.addFitRoomInfo(fitRoom);
+	}
+
+
+	@Override
+	public List<String> fitObjectServer() {
+		// TODO Auto-generated method stub
+		
+		return publish.fitObject();
 	}
 
 	

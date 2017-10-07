@@ -1,5 +1,7 @@
 package com.fitness.server.publish;
 
+import java.util.List;
+
 import com.fitness.datastruts.FitRoom;
 import com.fitness.datastruts.Publish;
 
@@ -33,6 +35,7 @@ public interface PublishMbean {
 		String getScoreServer(String openid);
 		
 		void addFitRoomServer(FitRoom fitRoom);
-	
+		
+		List<String> fitObjectServer();
 	
 }
