@@ -32,9 +32,9 @@ public class RegisterService  implements RegisterMbean {
 
 
 	@Override
-	public boolean queryRegister(String qqNumber, String userId) {
+	public boolean queryRegister(String openid) {
 		// TODO Auto-generated method stub
-		boolean check=registerDao4Common.register(qqNumber, userId);
+		boolean check=registerDao4Common.register(openid);
 		
 		return check;
 	}

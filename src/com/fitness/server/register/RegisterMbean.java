@@ -9,7 +9,7 @@ public interface RegisterMbean {
 	
 	List<PersonInfoTab> queryAlls(String openid);
 	
-	boolean queryRegister(String qqNumber,String userId);
+	boolean queryRegister(String openid);
 	
 	void uploadPerIcon(String userId,String personPicture);
 	

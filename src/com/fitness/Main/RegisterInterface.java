@@ -47,6 +47,23 @@ public class RegisterInterface {
 	Logger logger = Logger.getLogger(RegisterInterface.class.getName());
 	
 	
+	@At("/selectMethod")
+	@Ok("json")
+	public String selectMethod(HttpServletRequest request,  
+            HttpServletResponse response) throws ServletException, IOException{
+		String info="";
+		if(!checkUserExist(request.getParameter("openid"))){
+			insertPerInfo(request,response);
+			info= "用户信息插入成功";
+		}else{
+			System.out.println("进入了用户修改");
+			updatePer(request.getParameter("openid"),request,response);
+			info="用户信息修改成功";
+			System.out.println(info);
+		}
+		return  info;
+	}
+	
 	
 	/*
 	 *�˷������ڲ������ע����Ϣ 
@@ -115,11 +132,11 @@ public class RegisterInterface {
 	
 	@At("/checkUserExist")
 	@Ok("json")
-	public boolean checkUserExist(@Param("qqNumber")String qqNumber,@Param("userid")String userid){
+	public boolean checkUserExist(@Param("openid")String openid){
 		
 		boolean check = false;
 		try {
-			check = reg.queryRegister(qqNumber, userid);
+			check = reg.queryRegister(openid);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("checkUserExist:"+e.getMessage());
@@ -133,21 +150,23 @@ public class RegisterInterface {
 	//��Ҫ��Ҫ���µ���Ϣ�����������ܻ��Ϊ�գ��˴�Ӧ�����쳣
 	@At("/updatePer")
 	@Ok("json")
-	public Boolean updatePer(String openid,Map<String,String> map){
+	public Boolean updatePer(String openid,HttpServletRequest request,  
+            HttpServletResponse response){
 		PersonInfoTab pt=new PersonInfoTab();
 		Boolean b=false;
 		try {
-			pt.setOpenid(map.get("openid"));
-			pt.setSignature(map.get("signature"));
-			pt.setPhoneNumber(map.get("phoneNumber"));
-			pt.setOrgnization(map.get("orgnization"));
-			pt.setNickName(map.get("nickName"));
+			doGet(request,response);
+			pt.setOpenid(character.get("openid"));
+			pt.setSignature(character.get("signature"));
+			pt.setPhoneNumber(character.get("phoneNumber"));
+			pt.setOrgnization(character.get("orgnization"));
+			pt.setNickName(character.get("nickName"));
 			//pt.setGender(map.get("gender"));
-			pt.setEvalute(Float.valueOf(map.get("evalute")));
-			pt.setCoachRecord(map.get("coachRecord"));
+			//pt.setEvalute(Float.valueOf(character.get("evalute")));
+			pt.setCoachRecord(character.get("coachRecord"));
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");	
-			pt.setBirthDay(sdf.parse(map.get("birthDay")));
-			pt.setArea(map.get("area"));
+			pt.setBirthDay(sdf.parse(character.get("birthDay")));
+			pt.setArea(character.get("area"));
 			reg.updatePerService(openid, pt);
 			b=true;
 		} catch (NumberFormatException e) {
@@ -157,6 +176,12 @@ public class RegisterInterface {
 			
 			e.printStackTrace();
 			return b;
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		

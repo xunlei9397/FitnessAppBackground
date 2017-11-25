@@ -9,7 +9,7 @@ public interface RegisterDaoIf {
 	
 	List<PersonInfoTab> queryall(String openid);
 	
-	boolean  register(String qqNumber,String userId);
+	boolean  register(String openid);
  	
 	void uploadPerPic(String userId,String personPicture);
 	

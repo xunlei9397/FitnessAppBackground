@@ -53,11 +53,10 @@ public class RegisterDao4Common implements RegisterDaoIf {
 	}
 
 	@Override
-	public boolean register(String qqNumber, String userId) {
+	public boolean register(String openid) {
 		boolean check=true;
-		Sql sql = Sqls.create("SELECT userid,qqNumber FROM PersonInfoTab WHERE qqNumber=@qqNumber or userId=@userId");
-	    sql.params().set("qqNumber", qqNumber);
-	    sql.params().set("userId", userId);
+		Sql sql = Sqls.create("SELECT userid,qqNumber FROM PersonInfoTab WHERE openid=@openid");
+	    sql.params().set("openid", openid);
 	    sql.setCallback(new SqlCallback() {
 	        public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
 	            List<String> list = new LinkedList<String>();
