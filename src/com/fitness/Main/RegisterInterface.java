@@ -69,13 +69,13 @@ public class RegisterInterface {
 				pt.setOpenid(character.get("openid"));
 				//pt.setQqNumber(Integer.valueOf(character.get("qqNumber")));
 				pt.setSignature(character.get("signature"));
-				pt.setPhoneNumber(Integer.valueOf(character.get("phoneNumber")));
+				pt.setPhoneNumber(character.get("phoneNumber"));
 				//pt.setPersonPicture(character.get("personPicture"));
 				//pt.setPassword(character.get("password"));//�˴�Ҫ���ܴ���
 				pt.setOrgnization(character.get("orgnization"));
 				pt.setNickName(character.get("nickName"));
 				pt.setGender(character.get("gender"));
-				pt.setEvalute(Float.valueOf(character.get("evalute")));
+				//pt.setEvalute(Float.valueOf(character.get("evalute")));
 				pt.setCoachRecord(character.get("coachRecord"));
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");	
 				pt.setBirthDay(sdf.parse(character.get("birthDay")));
@@ -139,7 +139,7 @@ public class RegisterInterface {
 		try {
 			pt.setOpenid(map.get("openid"));
 			pt.setSignature(map.get("signature"));
-			pt.setPhoneNumber(Integer.valueOf(map.get("phoneNumber")));
+			pt.setPhoneNumber(map.get("phoneNumber"));
 			pt.setOrgnization(map.get("orgnization"));
 			pt.setNickName(map.get("nickName"));
 			//pt.setGender(map.get("gender"));
@@ -279,8 +279,7 @@ public class RegisterInterface {
 	 public void doGet(HttpServletRequest request,  
 	            HttpServletResponse response) throws ServletException, IOException {  
 	        PrintWriter writer = response.getWriter();  
-	        writer.println("GET " + request.getRequestURL() + " "   
-	                + request.getQueryString());  
+	 
 	        Map<String, String[]> params = request.getParameterMap();
 	        Map<String,String> query=new HashMap<>();// ��map���ڽ��մ����������ַ���	        
 	        String queryString = "";  
@@ -295,7 +294,6 @@ public class RegisterInterface {
 	        // ȥ�����һ���ո�  
 	        queryString = queryString.substring(0, queryString.length() - 1);  
 	        character=query;
-	        writer.println("GET " + request.getRequestURL() + " " + queryString);  
 	    }  
 	
 }

@@ -40,7 +40,7 @@ public class PersonInfoTab {
 	//微博id
 	private String weiBoId;
 	
-	private int phoneNumber;
+	private String phoneNumber;
 	
 	private String password;
 	
@@ -66,12 +66,13 @@ public class PersonInfoTab {
 
 	private String personPicture;
 	
+	
 
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
