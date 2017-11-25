@@ -7,7 +7,7 @@ import com.fitness.datastruts.PersonInfoTab;
 public interface RegisterMbean {
 	String SERVICE_NAME = "registerService";
 	
-	List<PersonInfoTab> queryAlls(String qqNumber, String userId);
+	List<PersonInfoTab> queryAlls(String openid);
 	
 	boolean queryRegister(String qqNumber,String userId);
 	

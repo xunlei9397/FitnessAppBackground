@@ -3,6 +3,7 @@ package com.fitness.Main;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.FitRoomList;
 import com.fitness.datastruts.Publish;
 import com.fitness.server.publish.PublishService;
 
@@ -21,32 +23,24 @@ import com.fitness.server.publish.PublishService;
 @At("/publishInterface")
 public class PublishInterface {
 
-	/*
-	 * ï¿½ï¿½É¾ï¿½Ä²ï¿½
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½Â¿Î³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½isReceivedï¿½Ö¶ÎµÄ·ï¿½ï¿½ï¿½
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½YNï¿½Ö¶ÎµÄ·ï¿½ï¿½ï¿½
-	 * ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½evaluteï¿½Ä·ï¿½ï¿½ï¿½
-	 * ï¿½ï¿½Ñ¯evaluteï¿½Ö¶ÎµÄºï¿½
-	 * */
 	@Inject("refer:publishService")
 	private PublishService publish;
 	Logger logger = Logger.getLogger(PublishInterface.class.getName());
-	
+
 	@At("/addObjectInt")
 	@Ok("json")
-	public Boolean addObjectInt(@Param("objectid")String objectid ,@Param("openid")String openid ,
-			@Param("wechatnumber")String wechatnumber,@Param("phonenumber")String phonenumber,
-			@Param("object")String object,@Param("time")Date time,@Param("address")String address,
-			@Param("fitroom")String  fitroom,@Param("price")int  price,@Param("remarks")String remarks) {
-		Boolean b=false;
-		try {	
-			Publish pub=new Publish();
+	public Boolean addObjectInt(@Param("objectid") String objectid, @Param("openid") String openid,
+			@Param("wechatnumber") String wechatnumber, @Param("phonenumber") String phonenumber,
+			@Param("object") String object, @Param("time") Date time, @Param("address") String address,
+			@Param("fitroom") String fitroom, @Param("price") int price, @Param("remarks") String remarks) {
+		Boolean b = false;
+		try {
+			Publish pub = new Publish();
 			pub.setObjectid(objectid);
 			pub.setOpenid(openid);
 			pub.setPhonenumber(phonenumber);
 			pub.setWechatnumber(wechatnumber);
-			object = new String(object.getBytes("ISO-8859-1"),"UTF-8");
+			object = new String(object.getBytes("ISO-8859-1"), "UTF-8");
 			pub.setObject(object);
 			pub.setTime(time);
 			pub.setAddress(address);
@@ -54,95 +48,202 @@ public class PublishInterface {
 			pub.setFitroom(fitroom);
 			pub.setRemarks(remarks);
 			publish.addObjectServer(pub);
-			b=true;
+			b = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("addObjectInt"+e.getMessage());
+			logger.error("addObjectInt" + e.getMessage());
 			e.printStackTrace();
 		}
 		return b;
-		
-	}
 
+	}
 
 	@At("/editYNInt")
 	@Ok("json")
-	public Boolean editYNInt(@Param("objectid")String objectid,@Param("YN") String YN) {
-		Boolean b=false;
+	public Boolean editYNInt(@Param("objectid") String objectid, @Param("YN") String YN) {
+		Boolean b = false;
 		try {
 			publish.editYNServer(objectid, YN);
-			b=true;
+			b = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("editYNInt"+e.getMessage());
+			logger.error("editYNInt" + e.getMessage());
 			e.printStackTrace();
 		}
 		return b;
-		
+
 	}
 
-	
 	@At("/addMapInfoInt")
 	@Ok("json")
-	public Boolean addMapInfoInt(@Param("objectid")String objectid,@Param("pointX")double pointX,@Param("pointY") double pointY,@Param("mapClass") int mapClass) {
-		Boolean b=false;
+	public Boolean addMapInfoInt(@Param("objectid") String objectid, @Param("pointX") double pointX,
+			@Param("pointY") double pointY, @Param("mapClass") int mapClass) {
+		Boolean b = false;
 		try {
-			publish.addMapInfoServer(objectid, pointX, pointY, mapClass);;
-			b=true;
+			publish.addMapInfoServer(objectid, pointX, pointY, mapClass);
+			;
+			b = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("editEvaluteInt"+e.getMessage());
+			logger.error("editEvaluteInt" + e.getMessage());
 			e.printStackTrace();
 		}
 		return b;
-		
+
 	}
-	
-	
+
 	@At("/getScoreInt")
 	@Ok("json")
-	public int getScoreInt(@Param("openid")String openid){
+	public int getScoreInt(@Param("openid") String openid) {
 		String sum;
-		sum=publish.getScoreServer(openid);
+		sum = publish.getScoreServer(openid);
 		return Integer.valueOf(sum);
 	}
-	
+
 	@At("/addFitRoomInt")
 	@Ok("json")
-	public Boolean addFitRoomInt(@Param("openid")String openid,@Param("frontphone")String frontphone,
-			@Param("businessHour")String businessHour,@Param("memberLevel")String memberLevel){
-		Boolean b=false;
+	public Boolean addFitRoomInt(@Param("openid") String openid, @Param("frontphone") String frontphone,
+			@Param("businessHour") String businessHour, @Param("memberLevel") String memberLevel) {
+		Boolean b = false;
 		try {
-			FitRoom fit=new FitRoom();
+			FitRoom fit = new FitRoom();
 			fit.setOpenid(openid);
 			fit.setFrontphone(frontphone);
 			fit.setBusinessHour(businessHour);
 			fit.setMemberLevel(memberLevel);
 			publish.addFitRoomServer(fit);
-			b=true;
+			b = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("editEvaluteInt"+e.getMessage());
+			logger.error("editEvaluteInt" + e.getMessage());
 			e.printStackTrace();
-		}		
-		
+		}
+
 		return b;
 	}
-	
+
 	@At("/fitObjectInt")
 	@Ok("json")
 	public List<String> fitObjectInt() {
-		List<String> list=new ArrayList<>();
+		List<String> list = new ArrayList<>();
 		try {
-			list=publish.fitObjectServer();
+			list = publish.fitObjectServer();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("editEvaluteInt"+e.getMessage());
+			logger.error("editEvaluteInt" + e.getMessage());
 			e.printStackTrace();
 		}
 		return list;
-		
+
 	}
-	
-	
+
+	@At("/addFitObjectInt")
+	@Ok("json")
+	public List<String> addFitObjectInt(@Param("json") String[] json) {
+		// ´«ÈëµÄÊý¾ÝÓ¦¸ÃÊÇ["1","2","3","4"]Êý×éÐÎÊ½
+		List<String> list = new LinkedList<>();
+
+		try {
+			if (json.length == 0) {
+				list.add("Äú´«ÈëµÄÊý×é³¤¶ÈÎª¿Õ");
+			} else {
+				for (int i = 0; i < json.length; i++) {
+					list.add(json[i]);
+				}
+				list = publish.addFitObjectServer(list);
+			}
+		} catch (Exception e) {
+			logger.error("addFitObjectInt" + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@At("/deleteFitObjectInt")
+	@Ok("json")
+	public List<String> deleteFitObjectInt(@Param("json") String[] json) {
+		// ´«ÈëµÄÊý¾ÝÓ¦¸ÃÊÇ["1","2","3","4"]Êý×éÐÎÊ½
+		List<String> list = new LinkedList<>();
+		try {
+
+			if (json.length == 0) {
+				list.add("Äú´«ÈëµÄÊý×é³¤¶ÈÎª¿Õ");
+			} else {
+				list = publish.deleteFitObjectServer(json);
+			}
+		} catch (Exception e) {
+			logger.error("addFitObjectInt" + e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	// ==================ÒÔÏÂÎªÔö¼Ó½¡Éí·¿ÁÐ±íÐÅÏ¢=======
+	@At("/addFitRoomListInt")
+	@Ok("json")
+	public Boolean addFitRoomListInt(@Param("province") String province,@Param("city") String city, @Param("county") String county,
+			@Param("fitRoomName") String fitRoomName) {
+		Boolean b=false;
+		FitRoomList fitroom = new FitRoomList();
+		try {
+			fitroom.setProvince(province);
+			fitroom.setCity(city);
+			fitroom.setCounty(county);
+			fitroom.setFitRoomName(fitRoomName);
+			fitroom.setFitRoomId(String.valueOf(Math.random()+fitRoomName.hashCode()));
+			publish.addFitRoomListServer(fitroom);
+			b=true;
+		} catch (Exception e) {
+			logger.error("addFitRoomList" + e.getMessage());
+			e.printStackTrace();
+		}
+		return b;
+	}
+
+	@At("/deleteFitRoomListInt")
+	@Ok("json")
+	public Boolean deleteFitRoomListInt(@Param("fitroomId")String fitroomId) {
+		Boolean b=false;
+		try {
+			publish.deleteFitRoomListServer(fitroomId);
+			b=true;
+		} catch (Exception e) {
+			logger.error("deleteFitRoomList" + e.getMessage());
+			e.printStackTrace();
+		}
+		return b;
+	}
+
+	@At("/updateFitRoomListInt")
+	@Ok("json")
+	public Boolean updateFitRoomListInt(@Param("fitroomId")String fitroomId, @Param("fitroomName")String fitroomName) {
+		Boolean b=false;
+		try {
+			publish.updateFitRoomListServer(fitroomId, fitroomName);
+			b=true;
+		} catch (Exception e) {
+			logger.error("updateFitRoomList" + e.getMessage());
+			e.printStackTrace();
+		}
+		return b;
+	}
+
+	@At("/searchFitRoomListInt")
+	@Ok("json")
+	public List<FitRoomList> searchFitRoomListInt(@Param("province")String province, @Param("city")String city,@Param("county")String county) {
+		List<FitRoomList> list=new ArrayList<>();
+		try {
+			list=publish.searchFitRoomListServer(province,city,county);
+			for(FitRoomList fit:list){
+				System.out.println(fit.getCounty());
+			}
+		} catch (Exception e) {
+			logger.error("searchFitRoomList" + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
 }

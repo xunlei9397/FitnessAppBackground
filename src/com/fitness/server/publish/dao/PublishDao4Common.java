@@ -16,6 +16,8 @@ import org.nutz.ioc.loader.annotation.IocBean;
 
 import com.fitness.datastruts.FitRoom;
 import com.fitness.datastruts.Publish;
+import com.fitness.datastruts.FitRoomList;
+import com.fitness.datastruts.PersonInfoTab;
 
 @IocBean
 public class PublishDao4Common implements PublishDaoIf {
@@ -125,5 +127,59 @@ public class PublishDao4Common implements PublishDaoIf {
 		defaultdao.execute(sql);
 		return sql.getList(String.class);
 	}
+
+	@Override
+	public List<String> addFitObject(List<String> list) {
+		
+		for(String s:list){
+			Sql	sql = Sqls.create("insert into fitobject (name) values('"+s+"')");
+			defaultdao.execute(sql);
+		}
+		return fitObject();
+	}
+
+	@Override
+	public List<String> deleteFitObject(String[] object) {
+		for(String s:object){
+			Sql	sql = Sqls.create("delete from fitobject where name ='"+s+"'");
+			defaultdao.execute(sql);
+		}
+		return fitObject();
+	}
+
+	@Override
+	public void addFitRoomList(FitRoomList fitroom) {
+		defaultdao.insert(fitroom);
+	}
+
+	@Override
+	public void deleteFitRoomList(String fitroomId) {
+		Sql sql=Sqls.create("delete from fitroom where  fitroomId=@fitroomId");
+	    sql.params().set("fitroomId",fitroomId);
+	    defaultdao.execute(sql);
+		
+	}
+
+	@Override
+	public void updateFitRoomList(String fitroomId,String fitroomName) {
+		// TODO Auto-generated method stub
+		FitRoomList fit=defaultdao.fetch(FitRoomList.class,fitroomId.toString());
+		fit.setFitRoomName(fitroomName);
+		defaultdao.update(fit);
+	}
+
+	@Override
+	public List<FitRoomList> searchFitRoomList(String province,String city, String county) {
+		// TODO Auto-generated method stub
+		Sql sql=Sqls.create("select * from fitroomlist where  province=@province or city=@city or county=@county ");
+		sql.params().set("province", province);
+		sql.params().set("city", city);
+		sql.params().set("county", county);
+		sql.setCallback(Sqls.callback.entities());
+		sql.setEntity(defaultdao.getEntity(FitRoomList.class));
+		defaultdao.execute(sql);
+		return sql.getList(FitRoomList.class);
+	}
+
 
 }

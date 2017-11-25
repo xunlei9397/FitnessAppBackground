@@ -90,18 +90,16 @@ public class RegisterInterface {
 	}
 	
 	/*
-	 *此方法用于查询个人注册信息，queryperinfo?qqNumber=1&userid=2
+	 *此方法用于查询个人注册信息，queryperinfo?openid=2
 	 * 
 	 */
 	@At("/queryperinfo")
 	@Ok("json")
-	public List<PersonInfoTab> queryPerAll(@Param("qqNumber")String qqNumber,@Param("userid")String userid) {
+	public List<PersonInfoTab> queryPerAll(@Param("openid")String openid) {
 		// TODO Auto-generated method stub
 		List<PersonInfoTab> per=new ArrayList<PersonInfoTab>();
 		try {
-			List<PersonInfoTab> personInfo=new ArrayList<PersonInfoTab>();
-			PersonInfoTab pt=new PersonInfoTab();
-	     	per.addAll(reg.queryAlls(qqNumber, userid));
+	     	per.addAll(reg.queryAlls(openid));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("queryperinfo:"+e.getMessage());

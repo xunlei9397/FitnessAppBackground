@@ -3,6 +3,7 @@ package com.fitness.server.publish;
 import java.util.List;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.FitRoomList;
 import com.fitness.datastruts.Publish;
 
 public interface PublishMbean {
@@ -37,5 +38,24 @@ public interface PublishMbean {
 		void addFitRoomServer(FitRoom fitRoom);
 		
 		List<String> fitObjectServer();
+		
+		List<String> addFitObjectServer(List<String> object);
+		
+		List<String> deleteFitObjectServer(String[] object);
+		
+		
+		/*
+		 *添加省份-区/县-健身房名称
+		 * 删除健身房名称
+		 * 修改健身房名称
+		 * 查找省份-区/县的健身房列表
+		 * */
+		void addFitRoomListServer(FitRoomList fitroom);
+		
+		void deleteFitRoomListServer(String fitroomId);
+		
+		void updateFitRoomListServer(String fitroomId,String fitroomName);
+		
+		List<FitRoomList> searchFitRoomListServer(String province,String city,String county);
 	
 }

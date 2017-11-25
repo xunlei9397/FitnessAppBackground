@@ -16,9 +16,9 @@ public class OperateTimeTableService implements OperateTimeTableBean {
 	private OpTimeTableDao4Common opTimeTable;
 	
 	@Override
-	public boolean judgeExistService(String userid, String startTime, String endTime) {
+	public boolean judgeExistService(String openid, String startTime, String endTime) {
 		// TODO Auto-generated method stub
-		opTimeTable.judgeExist(userid, startTime, endTime);
+		opTimeTable.judgeExist(openid, startTime, endTime);
 		return false;
 	}
 

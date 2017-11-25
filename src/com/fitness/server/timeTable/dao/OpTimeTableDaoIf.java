@@ -14,7 +14,7 @@ public interface OpTimeTableDaoIf {
 		 */
 	
 	//判断userid&&开始结束时间 是否存在
-	boolean judgeExist(String userid,String startTime,String endTime);
+	boolean judgeExist(String openid,String startTime,String endTime);
 	
 	//这里传过来时数据应该解析成一条一条的进行传输map里面存放的周一到周日的课程键值对
 	void insertClass(List<TranTimeTable> timeTable);

@@ -27,17 +27,17 @@ public class OpTimeTableDao4Common  implements OpTimeTableDaoIf {
 	private Dao defaultDao;
 	
 	@Override
-	public boolean judgeExist(String userid, String startTime, String endTime) {
+	public boolean judgeExist(String openid, String startTime, String endTime) {
 		boolean check=true;
-		Sql sql = Sqls.create("SELECT userid,startTime,endTime FROM TranTimeTable WHERE  userId=@userId and startTime=@startTime and endTime=@endTime");
-	    sql.params().set("userid", userid);
+		Sql sql = Sqls.create("SELECT openid,startTime,endTime FROM TranTimeTable WHERE  openid=@openid and startTime=@startTime and endTime=@endTime");
+	    sql.params().set("openid", openid);
 	    sql.params().set("startTime", startTime);
 	    sql.params().set("endTime", endTime);
 	    sql.setCallback(new SqlCallback() {
 	        public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
 	            List<String> list = new LinkedList<String>();
 	            while (rs.next()){
-	            list.add(rs.getString("userId"));
+	            list.add(rs.getString("openid"));
 	            list.add(rs.getString("startTime"));
 	            list.add(rs.getString("endTime"));
 	            }

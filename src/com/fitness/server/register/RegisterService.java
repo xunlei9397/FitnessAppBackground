@@ -18,9 +18,9 @@ public class RegisterService  implements RegisterMbean {
 	private RegisterDao4Common registerDao4Common;
 	
 	
-	public List<PersonInfoTab> queryAlls(String qqNumber, String userId) {
+	public List<PersonInfoTab> queryAlls(String openid) {
 		// TODO Auto-generated method stub
-		return registerDao4Common.queryall(qqNumber,userId);
+		return registerDao4Common.queryall(openid);
 		
 	}
 	

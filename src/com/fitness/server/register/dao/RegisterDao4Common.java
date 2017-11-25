@@ -27,12 +27,11 @@ public class RegisterDao4Common implements RegisterDaoIf {
 	
 	
 	
-	public List<PersonInfoTab> queryall(String qqNumber, String userId) {
+	public List<PersonInfoTab> queryall(String openid) {
 		// TODO Auto-generated method stub
 		
-		Sql sql=Sqls.create("select * from PersonInfoTab where  qqNumber=@qqNumber or userId=@userId");
-		sql.params().set("qqNumber", qqNumber);
-	    sql.params().set("userId", userId);
+		Sql sql=Sqls.create("select * from PersonInfoTab where  openid=@openid");
+		sql.params().set("openid", openid);
 		sql.setCallback(Sqls.callback.entities());
 		sql.setEntity(defaultDao.getEntity(PersonInfoTab.class));
 		defaultDao.execute(sql);

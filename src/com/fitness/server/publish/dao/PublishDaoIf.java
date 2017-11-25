@@ -3,6 +3,7 @@ package com.fitness.server.publish.dao;
 import java.util.List;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.FitRoomList;
 import com.fitness.datastruts.Publish;
 
 public interface PublishDaoIf {
@@ -17,7 +18,10 @@ public interface PublishDaoIf {
 	 * 将用户evalute字段的数值加起来，并返回
 	 * 发布者填写健身房信息
 	 * 为课程下拉列表提供课程名称
+	 * 写入课程名称到数据库
 	 * */
+	
+	
 	
 	//发布课程召教练
 	void addObject(Publish pub);
@@ -43,4 +47,23 @@ public interface PublishDaoIf {
 	void addFitRoomInfo(FitRoom fitRoom);
 	
 	List<String> fitObject();
+	
+	List<String> addFitObject(List<String> object);
+	
+	List<String> deleteFitObject(String[] object);
+	
+	/*
+	 *添加省份-区/县-健身房名称
+	 * 删除健身房名称
+	 * 修改健身房名称
+	 * 查找省份-区/县的健身房列表
+	 * */
+	void addFitRoomList(FitRoomList fitroom);
+	
+	void deleteFitRoomList(String fitroomId);
+	
+	void updateFitRoomList(String fitroomId,String fitroomName);
+	
+	List<FitRoomList> searchFitRoomList(String province,String city,String county);
+	
 }

@@ -22,7 +22,7 @@ public interface OperateTimeTableBean {
 	 *若存在则用upString语句
 	 */
 	//判断userid&&开始结束时间 是否存在
-		boolean judgeExistService(String userid,String startTime,String endTime);
+		boolean judgeExistService(String openid,String startTime,String endTime);
 		
 		//这里传过来时数据应该解析成一条一条的进行传输map里面存放的周一到周日的课程键值对
 		void insertClassService(List<TranTimeTable> timeTable);

@@ -6,6 +6,7 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.FitRoomList;
 import com.fitness.datastruts.Publish;
 import com.fitness.server.publish.dao.PublishDao4Common;
 
@@ -65,6 +66,47 @@ public class PublishService implements PublishMbean {
 		// TODO Auto-generated method stub
 		
 		return publish.fitObject();
+	}
+
+
+	@Override
+	public List<String> addFitObjectServer(List<String> list) {
+		// TODO Auto-generated method stub
+		return publish.addFitObject(list);
+	}
+
+
+	@Override
+	public List<String> deleteFitObjectServer(String[] object) {
+		// TODO Auto-generated method stub
+		return publish.deleteFitObject(object);
+	}
+
+
+	@Override
+	public void addFitRoomListServer(FitRoomList fitroom) {
+		// TODO Auto-generated method stub
+		publish.addFitRoomList(fitroom);
+	}
+
+
+	@Override
+	public void deleteFitRoomListServer(String fitroomId) {
+		publish.deleteFitRoomList(fitroomId);
+		
+	}
+
+
+	@Override
+	public void updateFitRoomListServer(String fitroomId, String fitroomName) {
+		publish.updateFitRoomList(fitroomId, fitroomName);
+	}
+
+
+	@Override
+	public List<FitRoomList> searchFitRoomListServer (String province,String city, String county) {
+		// TODO Auto-generated method stub
+		return publish.searchFitRoomList(province,city,county);
 	}
 
 	

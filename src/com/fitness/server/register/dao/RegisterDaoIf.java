@@ -7,7 +7,7 @@ import com.fitness.datastruts.PersonInfoTab;
 public interface RegisterDaoIf {
 	String DAO_NAME = "registerDaoIf";
 	
-	List<PersonInfoTab> queryall(String qqNumber, String userId);
+	List<PersonInfoTab> queryall(String openid);
 	
 	boolean  register(String qqNumber,String userId);
  	
