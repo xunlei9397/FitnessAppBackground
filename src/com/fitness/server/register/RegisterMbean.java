@@ -15,5 +15,5 @@ public interface RegisterMbean {
 	
 	String downLoadPerIcon(String userId);
 	
-	
+	void updatePerService(String openid,PersonInfoTab p);
 }

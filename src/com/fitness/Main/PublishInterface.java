@@ -140,12 +140,12 @@ public class PublishInterface {
 	@At("/addFitObjectInt")
 	@Ok("json")
 	public List<String> addFitObjectInt(@Param("json") String[] json) {
-		// 传入的数据应该是["1","2","3","4"]数组形式
+		// 浼犲叆鐨勬暟鎹簲璇ユ槸["1","2","3","4"]鏁扮粍褰㈠紡
 		List<String> list = new LinkedList<>();
 
 		try {
 			if (json.length == 0) {
-				list.add("您传入的数组长度为空");
+				list.add("鎮ㄤ紶鍏ョ殑鏁扮粍闀垮害涓虹┖");
 			} else {
 				for (int i = 0; i < json.length; i++) {
 					list.add(json[i]);
@@ -163,12 +163,12 @@ public class PublishInterface {
 	@At("/deleteFitObjectInt")
 	@Ok("json")
 	public List<String> deleteFitObjectInt(@Param("json") String[] json) {
-		// 传入的数据应该是["1","2","3","4"]数组形式
+		// 浼犲叆鐨勬暟鎹簲璇ユ槸["1","2","3","4"]鏁扮粍褰㈠紡
 		List<String> list = new LinkedList<>();
 		try {
 
 			if (json.length == 0) {
-				list.add("您传入的数组长度为空");
+				list.add("鎮ㄤ紶鍏ョ殑鏁扮粍闀垮害涓虹┖");
 			} else {
 				list = publish.deleteFitObjectServer(json);
 			}
@@ -179,7 +179,7 @@ public class PublishInterface {
 		return list;
 	}
 
-	// ==================以下为增加健身房列表信息=======
+	// ==================浠ヤ笅涓哄鍔犲仴韬埧鍒楄〃淇℃伅=======
 	@At("/addFitRoomListInt")
 	@Ok("json")
 	public Boolean addFitRoomListInt(@Param("province") String province,@Param("city") String city, @Param("county") String county,

@@ -9,14 +9,14 @@ import com.fitness.datastruts.Share;
 public interface ShareInfoDaoIf {
 
 	/*
-	 * �û���˵˵�ӿ�
-	 * �û����۽ӿ�
-	 * �����û���������,һͬ���ҷ����µ�����
+	 * 用户发说说接口
+	 * 用户评论接口
+	 * 查找用户分享方法,一同查找分享下的评论
 	 * 
-	 * �ӿڴ�����ļ��ϴ�����(����picAddress�ֶεķ���������vidAddress�ֶεķ���)
-	 * ��Ҫ����ҳ��С���ҷ���ҳ��
-	 * ����ͼƬ/��Ƶ��ַ�ֶεķ���
-	 * �û����޽ӿ�
+	 * 接口处设计文件上传方法(升级picAddress字段的方法，升级vidAddress字段的方法)
+	 * 需要传入页大小并且返回页数
+	 * 查找图片/视频地址字段的方法
+	 * 用户点赞接口
 	 * */
 	
 	void share(Share share);

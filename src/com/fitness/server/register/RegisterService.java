@@ -54,6 +54,13 @@ public class RegisterService  implements RegisterMbean {
 	}
 
 
+	@Override
+	public void updatePerService(String openid, PersonInfoTab p) {
+		// TODO Auto-generated method stub
+		registerDao4Common.updatePersonInfo(openid, p);
+	}
+
+
 	
 
 }

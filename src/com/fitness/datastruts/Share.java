@@ -9,17 +9,17 @@ import org.nutz.dao.entity.annotation.Table;
 public class Share {
 
 	/*
-	 * �����Ƿ�����Ϣ�����ݽṹ,�û������۱���CommentTab
+	 * 此类是分享信息的数据结构,用户的评论表是CommentTab
 	 * */
 	
 	/*
-	 * ΢���û���openid
-	 * ����˵˵��ssid
-	 * ˵˵ʱ��time
-	 * ������ϢMessage
-	 * ͼƬPicture:����һ�������û�ͼƬ��ַ PicVidAddress�洢ͼƬ��Ƶ��ַ
-	 * ��ƵVideo����ͼƬͬһ������Ƶ�洢��ַ
-	 * ������admireNum
+	 * 微信用户的openid
+	 * 所发说说的ssid
+	 * 说说时间time
+	 * 文字消息Message
+	 * 图片Picture:单独一个表存用户图片地址 PicVidAddress存储图片视频地址
+	 * 视频Video：与图片同一表存视频存储地址
+	 * 点赞数admireNum
 	 * */
 	private String openid;
 	

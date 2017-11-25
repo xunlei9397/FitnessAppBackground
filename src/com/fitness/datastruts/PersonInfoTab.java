@@ -2,6 +2,7 @@ package com.fitness.datastruts;
 
 import java.util.Date;
 
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 
@@ -10,32 +11,33 @@ public class PersonInfoTab {
 		
 	
 	/*
-	 *±¾ÊµÌåÀàÊÇÓÃ»§¸öÈËĞÅÏ¢µÄÒ»Ğ©ÊôĞÔ£¬×¢²áÊ±Íù´Ë´¦´æ£¬»ù±¾ĞÅÏ¢´Ó´Ë´¦È¡
-	 *ÓÃ»§id
-	 *Î¢ĞÅopenid
-	 *qqºÅ
-	 *ÊÖ»úºÅ
-	 *ÃÜÂë
-	 *êÇ³Æ
-	 *ĞÔ±ğ
-	 *µØÇø:Ê¡-ÊĞ-Çø
-	 *¸öĞÔÇ©Ãû
-	 *ÉúÈÕ
-	 *½ÌÁ·ÂÄÀú
-	 *¹¤×÷µ¥Î»
-	 *ÎÒµÄÆÀ¼Û:·µ»ØÇ°Ì¨floatÀàĞÍµÄÊı×Ö
-	 *¸öÈËÍ·Ïñ
+	 *æœ¬å®ä½“ç±»æ˜¯ç”¨æˆ·ä¸ªäººä¿¡æ¯çš„ä¸€äº›å±æ€§ï¼Œæ³¨å†Œæ—¶å¾€æ­¤å¤„å­˜ï¼ŒåŸºæœ¬ä¿¡æ¯ä»æ­¤å¤„å–
+	 *ç”¨æˆ·id
+	 *å¾®ä¿¡openid
+	 *qqå·
+	 *æ‰‹æœºå·
+	 *å¯†ç 
+	 *æ˜µç§°
+	 *æ€§åˆ«
+	 *åœ°åŒº:çœ-å¸‚-åŒº
+	 *ä¸ªæ€§ç­¾å
+	 *ç”Ÿæ—¥
+	 *æ•™ç»ƒå±¥å†
+	 *å·¥ä½œå•ä½
+	 *æˆ‘çš„è¯„ä»·:è¿”å›å‰å°floatç±»å‹çš„æ•°å­—
+	 *ä¸ªäººå¤´åƒ
 	 */
 	private int userId;
 	
+	@Name
 	private String openid;
 	
 	private int qqNumber;
 	
-	//Î¢ĞÅid
+	//å¾®ä¿¡id
 	private String weiXinId;
 	
-	//Î¢²©id
+	//å¾®åšid
 	private String weiBoId;
 	
 	private int phoneNumber;
@@ -48,18 +50,18 @@ public class PersonInfoTab {
 	
 	private String area;
 	
-	//Ç©Ãû
+	//ç­¾å
 	private String signature;
 	
 	private Date birthDay;
 	
-	//½ÌÁ·ÂÄÀú
+	//æ•™ç»ƒå±¥å†
 	private String coachRecord;
 	
-	//¹¤×÷µ¥Î»
+	//å·¥ä½œå•ä½
 	private String orgnization;
 	
-	//ÆÀ¼Û
+	//è¯„ä»·
 	private float evalute;
 
 	private String personPicture;

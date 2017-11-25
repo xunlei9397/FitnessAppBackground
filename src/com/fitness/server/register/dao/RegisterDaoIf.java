@@ -15,4 +15,7 @@ public interface RegisterDaoIf {
 	
 	String downLoadPerPic(String userId);
 	
+	void updatePersonInfo(String openid,PersonInfoTab p);
+	
+	
 }

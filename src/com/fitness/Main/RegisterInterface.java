@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +25,9 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
-import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.mvc.adaptor.injector.RequestInjector;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
@@ -48,28 +49,29 @@ public class RegisterInterface {
 	
 	
 	/*
-	 *´Ë·½·¨ÓÃÓÚ²åÈë¸öÈË×¢²áÐÅÏ¢ 
+	 *ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ï¢ 
 	 * register.eo?userId=1&openid=5526gfghbb&qqNumber=888888&signature=1&phoneNumber=1&personPicture=1&password=1&orgnization=1&nickName=1&gender=1&
 	 * evalute=1&coachRecord=1&birthDay=1&area=1
 	 */
 	@At("/register")
 	@Ok("json")
-	public void insertPerInfo(HttpServletRequest request,  
+	public Boolean insertPerInfo(HttpServletRequest request,  
             HttpServletResponse response)throws ServletException, IOException {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub	
+		//request.setCharacterEncoding("UTF-8");//ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ÎªUTF-8
+		Boolean b=false;
 		doGet(request,response);
-		System.out.println("»ñµÃµÄ×Ö·û´®Îª"+character);
+		System.out.println("ï¿½ï¿½Ãµï¿½ï¿½Ö·ï¿½ï¿½ï¿½Îª"+character);
 		try {
 			List<PersonInfoTab> personInfo=new ArrayList<PersonInfoTab>();
 			PersonInfoTab pt=new PersonInfoTab();
-			for(String a:character.keySet()){
 				//pt.setUserId(Integer.valueOf(character.get("userId")));
-				pt.setOpenid(character.get("Openid"));
-				pt.setQqNumber(Integer.valueOf(character.get("qqNumber")));
+				pt.setOpenid(character.get("openid"));
+				//pt.setQqNumber(Integer.valueOf(character.get("qqNumber")));
 				pt.setSignature(character.get("signature"));
 				pt.setPhoneNumber(Integer.valueOf(character.get("phoneNumber")));
-				pt.setPersonPicture(character.get("personPicture"));
-				pt.setPassword(character.get("password"));//´Ë´¦Òª¼ÓÃÜ´«Êä
+				//pt.setPersonPicture(character.get("personPicture"));
+				//pt.setPassword(character.get("password"));//ï¿½Ë´ï¿½Òªï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
 				pt.setOrgnization(character.get("orgnization"));
 				pt.setNickName(character.get("nickName"));
 				pt.setGender(character.get("gender"));
@@ -79,18 +81,20 @@ public class RegisterInterface {
 				pt.setBirthDay(sdf.parse(character.get("birthDay")));
 				pt.setArea(character.get("area"));
 				
-			}
+			
 			personInfo.add(pt);
 			reg.insertPersonInfo(personInfo);
+			b=true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("register:"+e.getMessage());
 			e.printStackTrace();
 		}
+		return b;
 	}
 	
 	/*
-	 *´Ë·½·¨ÓÃÓÚ²éÑ¯¸öÈË×¢²áÐÅÏ¢£¬queryperinfo?openid=2
+	 *ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½queryperinfo?openid=2
 	 * 
 	 */
 	@At("/queryperinfo")
@@ -126,50 +130,84 @@ public class RegisterInterface {
 		return check;	
 	}
 	
+	//ï¿½ï¿½Òªï¿½ï¿½Òªï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½Ë´ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ì³£
+	@At("/updatePer")
+	@Ok("json")
+	public Boolean updatePer(String openid,Map<String,String> map){
+		PersonInfoTab pt=new PersonInfoTab();
+		Boolean b=false;
+		try {
+			pt.setOpenid(map.get("openid"));
+			pt.setSignature(map.get("signature"));
+			pt.setPhoneNumber(Integer.valueOf(map.get("phoneNumber")));
+			pt.setOrgnization(map.get("orgnization"));
+			pt.setNickName(map.get("nickName"));
+			//pt.setGender(map.get("gender"));
+			pt.setEvalute(Float.valueOf(map.get("evalute")));
+			pt.setCoachRecord(map.get("coachRecord"));
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");	
+			pt.setBirthDay(sdf.parse(map.get("birthDay")));
+			pt.setArea(map.get("area"));
+			reg.updatePerService(openid, pt);
+			b=true;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return b;
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+			return b;
+		}
+		
+		
+		return b;
+	}
+	
+	
 	/*
-	 * ÓÃÓÚÉÏ´«¸öÈËÍ·Ïñ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	 */
 	@At("/uploadPersonIcon")
 	public void uploadPersonIcon(@Param("userId") String userId, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8"); // ÉèÖÃresponse±àÂë·½Ê½
-		request.setCharacterEncoding("UTF-8"); // ÉèÖÃrequest±àÂë·½Ê½
+		response.setCharacterEncoding("UTF-8"); // ï¿½ï¿½ï¿½ï¿½responseï¿½ï¿½ï¿½ë·½Ê½
+		request.setCharacterEncoding("UTF-8"); // ï¿½ï¿½ï¿½ï¿½requestï¿½ï¿½ï¿½ë·½Ê½
 
-		// ´´½¨ÎÄ¼þÏîÄ¿¹¤³§¶ÔÏó
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		DiskFileItemFactory factory = new DiskFileItemFactory();
-		// ÉèÖÃÎÄ¼þÉÏ´«Â·¾¶
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½Â·ï¿½ï¿½
 		String upload = "../personIcon/"+userId;
-		//´Ë´¦ÅÐ¶ÏÈôÎÄ¼þ¼Ð²»´æÔÚÔò´´½¨
+		//ï¿½Ë´ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò´´½ï¿½
 		
-		// »ñÈ¡ÏµÍ³Ä¬ÈÏµÄÁÙÊ±ÎÄ¼þ±£´æÂ·¾¶£¬¸ÃÂ·¾¶ÎªTomcat¸ùÄ¿Â¼ÏÂµÄtempÎÄ¼þ¼Ð
+		// ï¿½ï¿½È¡ÏµÍ³Ä¬ï¿½Ïµï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ÎªTomcatï¿½ï¿½Ä¿Â¼ï¿½Âµï¿½tempï¿½Ä¼ï¿½ï¿½ï¿½
 		String temp = System.getProperty("java.io.tmpdir");
-		// ÉèÖÃ»º³åÇø´óÐ¡Îª 1M
+		// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Îª 1M
 		factory.setSizeThreshold(1024 * 1024);
-		// ÉèÖÃÁÙÊ±ÎÄ¼þ¼ÐÎªtemp
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½Îªtemp
 		factory.setRepository(new File(temp));
-		// ÓÃ¹¤³§ÊµÀý»¯ÉÏ´«×é¼þ,ServletFileUpload ÓÃÀ´½âÎöÎÄ¼þÉÏ´«ÇëÇó
+		// ï¿½Ã¹ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½,ServletFileUpload ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
 		ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
 
-		// ½âÎörequest
+		// ï¿½ï¿½ï¿½ï¿½request
 		try {
-			// ½âÎö½á¹û·ÅÔÚListÖÐ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Listï¿½ï¿½
 			List<FileItem> list = servletFileUpload.parseRequest(request);
-			for (FileItem item : list) {// ±éÀúËùÓÐFileItem
-				// »ñÈ¡±íµ¥ÊôÐÔÃû³Æ
+			for (FileItem item : list) {// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FileItem
+				// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				String name = item.getFieldName();
 
-				// Èç¹ûÎªÎÄ±¾Óò
+				// ï¿½ï¿½ï¿½Îªï¿½Ä±ï¿½ï¿½ï¿½
 				if (item.isFormField()) {
-					String value = item.getString();// »ñÈ¡ÓÃ»§ÊäÈë×Ö·û´®
+					String value = item.getString();// ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 					System.out.println(item.getFieldName() + ":" + value);
 					request.setAttribute(name, value);
-				} else {// ·ñÔòÎªÎÄ¼þÓò
-						// »ñÈ¡ÉÏ´«ÎÄ¼þÃû
+				} else {// ï¿½ï¿½ï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½
+						// ï¿½ï¿½È¡ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 					String filename = item.getName();
 					filename=userId+"."+filename.substring(filename.lastIndexOf(".")+1);
-					//´Ë´¦½«ÓÃ»§Í·ÏñµØÖ·ÐÅÏ¢±£´æµ½Êý¾Ý¿â
+					//ï¿½Ë´ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Í·ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½
 					reg.uploadPerIcon(userId, upload+"/"+filename);
-					// ÒÔÁ÷µÄÐÎÊ½·µ»ØÉÏ´«ÎÄ¼þµÄÊý¾ÝÄÚÈÝ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					InputStream in = item.getInputStream();
 					
 					File f=new File(upload);
@@ -178,18 +216,18 @@ public class RegisterInterface {
 						f.mkdirs();
 					}
 					}
-					// ´´½¨Ò»¸öÏòÖ¸¶¨ File ¶ÔÏó±íÊ¾µÄÎÄ¼þÖÐÐ´ÈëÊý¾ÝµÄÎÄ¼þÊä³öÁ÷
+					// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ File ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					FileOutputStream outs = new FileOutputStream(new File(upload, filename));
 					int len = 0;
-					// ¶¨Òå×Ö½ÚÊý×ébuffer, ´óÐ¡Îª1024
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½buffer, ï¿½ï¿½Ð¡Îª1024
 					byte[] buffer = new byte[1024];
-					System.out.println("ÉÏ´«ÎÄ¼þ´óÐ¡£º" + item.getSize() + " KB");
+					System.out.println("ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½" + item.getSize() + " KB");
 					while ((len = in.read(buffer)) != -1) {
-						// ½«Ö¸¶¨ buffer Êý×éÖÐ´ÓÆ«ÒÆÁ¿ 0 ¿ªÊ¼µÄ len ¸ö×Ö½ÚÐ´Èë´ËÎÄ¼þÊä³öÁ÷
+						// ï¿½ï¿½Ö¸ï¿½ï¿½ buffer ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Æ«ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½Ê¼ï¿½ï¿½ len ï¿½ï¿½ï¿½Ö½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						outs.write(buffer, 0, len);
 					}
-					in.close(); // ¹Ø±ÕÊäÈëÁ÷
-					outs.close(); // ¹Ø±ÕÊä³öÁ÷
+					in.close(); // ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					outs.close(); // ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 		} catch (FileUploadException e) {
@@ -199,7 +237,7 @@ public class RegisterInterface {
 	}
 
 	/*
-	 * ÓÃÓÚÏÂÔØ¸öÈËÍ·Ïñ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	 */
 	@At("/downloadPersonIcon")
 	@Ok("json")
@@ -243,19 +281,18 @@ public class RegisterInterface {
 	        PrintWriter writer = response.getWriter();  
 	        writer.println("GET " + request.getRequestURL() + " "   
 	                + request.getQueryString());  
-	  
 	        Map<String, String[]> params = request.getParameterMap();
-	        Map<String,String> query=new HashMap<>();// ´ËmapÓÃÓÚ½ÓÊÕ´«´«¹ýÀ´µÄ×Ö·û´®	        
+	        Map<String,String> query=new HashMap<>();// ï¿½ï¿½mapï¿½ï¿½ï¿½Ú½ï¿½ï¿½Õ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½	        
 	        String queryString = "";  
 	        for (String key : params.keySet()) {  
 	            String[] values = params.get(key);  
 	            for (int i = 0; i < values.length; i++) {  
-	                String value = values[i];  
+	                String value = new String(values[i].getBytes("ISO-8859-1"),"UTF-8");  
 	                query.put(key, value);
 	                queryString += key + "=" + value + "&";  
 	            }  
 	        }  
-	        // È¥µô×îºóÒ»¸ö¿Õ¸ñ  
+	        // È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Õ¸ï¿½  
 	        queryString = queryString.substring(0, queryString.length() - 1);  
 	        character=query;
 	        writer.println("GET " + request.getRequestURL() + " " + queryString);  

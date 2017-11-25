@@ -8,17 +8,17 @@ public class Search {
 
 	
 	/*
-	 * ´ËÀàÊÇËÑË÷·½µÄÊı¾İ½á¹¹
+	 * æ­¤ç±»æ˜¯æœç´¢æ–¹çš„æ•°æ®ç»“æ„
 	 * */
 	
 	/*
-	 * ËÑË÷·½µÄopenid
-	 * Òª½ÌµÄ¿Î³Ìobject
-	 * Ê±¼ätime
-	 * µØµãaddress
-	 * ¼Û¸ñprice
-	 * ·¢²¼·½µç»°pubphonenumber
-	 * ·¢²¼·½Î¢ĞÅºÅpubwechatnumber 
+	 * æœç´¢æ–¹çš„openid
+	 * è¦æ•™çš„è¯¾ç¨‹object
+	 * æ—¶é—´time
+	 * åœ°ç‚¹address
+	 * ä»·æ ¼price
+	 * å‘å¸ƒæ–¹ç”µè¯pubphonenumber
+	 * å‘å¸ƒæ–¹å¾®ä¿¡å·pubwechatnumber 
 	 * */
 	
 	private String openid;

@@ -34,10 +34,10 @@ public class TimeTableInterface {
 	
 	@At("/checkClassExist")
 	@Ok("json")
-	public boolean checkUserExist(@Param("userid")String userid,@Param("startTime")String startTime,@Param("endTime")String endTime){		
+	public boolean checkUserExist(@Param("openid")String openid,@Param("startTime")String startTime,@Param("endTime")String endTime){		
 		boolean check=true;
 			try {
-				check = opTimeTable.judgeExistService(userid, startTime, endTime);
+				check = opTimeTable.judgeExistService(openid, startTime, endTime);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				logger.error("checkClassExist:"+e.getMessage());
@@ -53,10 +53,10 @@ public class TimeTableInterface {
 	@Ok("json")
 	public void insertClassIf(@Param("timeTables")String timeTables) {
 		/*
-		 * ¾ÙÀı£º[{"userId":123456,"startTime":"18:00","endTime":"19:00","Mon":"1","Tue":"2","Wed":"3","Thu":"4","Fri":"5","Sat":"6","Sun":"7"},
+		 * ä¸¾ä¾‹ï¼š[{"userId":123456,"startTime":"18:00","endTime":"19:00","Mon":"1","Tue":"2","Wed":"3","Thu":"4","Fri":"5","Sat":"6","Sun":"7"},
 			{"userId":789,"startTime":"18:00","endTime":"19:00","Mon":"1","Tue":"2","Wed":"3","Thu":"4","Fri":"5","Sat":"6","Sun":"7"}]
 		 * */
-		//timeTables ½ÓÊÜjson£¬ÖÜÒ»µ½µ½ÖÜÄ©µÄ¿Î±í
+		//timeTables æ¥å—jsonï¼Œå‘¨ä¸€åˆ°åˆ°å‘¨æœ«çš„è¯¾è¡¨
 		try {
 			Gson gson = new Gson();  
 			List<TranTimeTable> timeTable = gson.fromJson(timeTables, new TypeToken<List<TranTimeTable>>(){}.getType()); 
@@ -72,9 +72,9 @@ public class TimeTableInterface {
 	@Ok("json")
 	public void updateClassIf(@Param("userid")String userid,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("courses") String courses) {
 		/*
-		 * ¾ÙÀıupdateClassIf.eo?userid=1145&startTime=18:00&endTime=19:00&courses={"Mon":"1","Tue":"1","Wed":"1","Thu":"1","Fri":"1","Sat":"1","Sun":"1"}
+		 * ä¸¾ä¾‹updateClassIf.eo?userid=1145&startTime=18:00&endTime=19:00&courses={"Mon":"1","Tue":"1","Wed":"1","Thu":"1","Fri":"1","Sat":"1","Sun":"1"}
 		 * */
-		//courses ½ÓÊÜjson£¬ÖÜÒ»µ½µ½ÖÜÄ©µÄ¿Î³Ì	
+		//courses æ¥å—jsonï¼Œå‘¨ä¸€åˆ°åˆ°å‘¨æœ«çš„è¯¾ç¨‹	
 		// TODO Auto-generated method stub
 		try {
 			opTimeTable.updateClassService(userid, startTime, endTime, JsonToMap(courses));
@@ -117,7 +117,7 @@ public class TimeTableInterface {
 
 		JSONObject jsonObject = JSONObject.fromObject(jsonStr);
 
-		Iterator<String> keys = jsonObject.keys();// ¶¨Òåµü´úÆ÷
+		Iterator<String> keys = jsonObject.keys();// å®šä¹‰è¿­ä»£å™¨
 
 		String key = null;
 		String value = null;

@@ -9,37 +9,37 @@ import com.fitness.datastruts.Publish;
 public interface PublishDaoIf {
 
 	/*
-	 * ÔöÉ¾¸Ä²é
-	 * ·¢²¼ĞÂ¿Î³ÌÊ±²åÈëµÄ·½·¨ 
-	 * µ¥¶ÀĞŞ¸ÄisReceived×Ö¶ÎµÄ·½·¨
-	 * µ¥¶ÀĞŞ¸ÄYN×Ö¶ÎµÄ·½·¨
-	 * ĞŞ¸ÄÆÀ¼Û×Ö¶ÎevaluteµÄ·½·¨
-	 * Ìí¼Ó¾­¶È¡¢Î³¶È¡¢µØÍ¼¼¶±ğ
-	 * ½«ÓÃ»§evalute×Ö¶ÎµÄÊıÖµ¼ÓÆğÀ´£¬²¢·µ»Ø
-	 * ·¢²¼ÕßÌîĞ´½¡Éí·¿ĞÅÏ¢
-	 * Îª¿Î³ÌÏÂÀ­ÁĞ±íÌá¹©¿Î³ÌÃû³Æ
-	 * Ğ´Èë¿Î³ÌÃû³Æµ½Êı¾İ¿â
+	 * å¢åˆ æ”¹æŸ¥
+	 * å‘å¸ƒæ–°è¯¾ç¨‹æ—¶æ’å…¥çš„æ–¹æ³• 
+	 * å•ç‹¬ä¿®æ”¹isReceivedå­—æ®µçš„æ–¹æ³•
+	 * å•ç‹¬ä¿®æ”¹YNå­—æ®µçš„æ–¹æ³•
+	 * ä¿®æ”¹è¯„ä»·å­—æ®µevaluteçš„æ–¹æ³•
+	 * æ·»åŠ ç»åº¦ã€çº¬åº¦ã€åœ°å›¾çº§åˆ«
+	 * å°†ç”¨æˆ·evaluteå­—æ®µçš„æ•°å€¼åŠ èµ·æ¥ï¼Œå¹¶è¿”å›
+	 * å‘å¸ƒè€…å¡«å†™å¥èº«æˆ¿ä¿¡æ¯
+	 * ä¸ºè¯¾ç¨‹ä¸‹æ‹‰åˆ—è¡¨æä¾›è¯¾ç¨‹åç§°
+	 * å†™å…¥è¯¾ç¨‹åç§°åˆ°æ•°æ®åº“
 	 * */
 	
 	
 	
-	//·¢²¼¿Î³ÌÕÙ½ÌÁ·
+	//å‘å¸ƒè¯¾ç¨‹å¬æ•™ç»ƒ
 	void addObject(Publish pub);
 	
-	// µ¥¶ÀĞŞ¸ÄisReceived×Ö¶ÎµÄ·½·¨
+	// å•ç‹¬ä¿®æ”¹isReceivedå­—æ®µçš„æ–¹æ³•
 	Boolean editIsReceived(String objectid,String Content);
 	
 	
-	// µ¥¶ÀĞŞ¸ÄYN×Ö¶ÎµÄ·½·¨
+	// å•ç‹¬ä¿®æ”¹YNå­—æ®µçš„æ–¹æ³•
 	void editYN(String objectid,String YN);
 	
 	
 	
-	//ĞŞ¸ÄÆÀ¼Û×Ö¶ÎevaluteµÄ·½·¨
+	//ä¿®æ”¹è¯„ä»·å­—æ®µevaluteçš„æ–¹æ³•
 	void editEvalute(String objectid,int score);
 	
 	
-	//Ìí¼Ó¾­¶È¡¢Î³¶È¡¢µØÍ¼¼¶±ğ
+	//æ·»åŠ ç»åº¦ã€çº¬åº¦ã€åœ°å›¾çº§åˆ«
 	void addMapInfo(String objectid,double pointX,double pointY,int mapClass);
 	
 	String getScore(String openid);
@@ -53,10 +53,10 @@ public interface PublishDaoIf {
 	List<String> deleteFitObject(String[] object);
 	
 	/*
-	 *Ìí¼ÓÊ¡·İ-Çø/ÏØ-½¡Éí·¿Ãû³Æ
-	 * É¾³ı½¡Éí·¿Ãû³Æ
-	 * ĞŞ¸Ä½¡Éí·¿Ãû³Æ
-	 * ²éÕÒÊ¡·İ-Çø/ÏØµÄ½¡Éí·¿ÁĞ±í
+	 *æ·»åŠ çœä»½-åŒº/å¿-å¥èº«æˆ¿åç§°
+	 * åˆ é™¤å¥èº«æˆ¿åç§°
+	 * ä¿®æ”¹å¥èº«æˆ¿åç§°
+	 * æŸ¥æ‰¾çœä»½-åŒº/å¿çš„å¥èº«æˆ¿åˆ—è¡¨
 	 * */
 	void addFitRoomList(FitRoomList fitroom);
 	

@@ -16,6 +16,7 @@ import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 
 import com.fitness.datastruts.PersonInfoTab;
+import com.fitness.datastruts.Publish;
 
 @IocBean
 public class RegisterDao4Common implements RegisterDaoIf {
@@ -35,7 +36,7 @@ public class RegisterDao4Common implements RegisterDaoIf {
 		sql.setCallback(Sqls.callback.entities());
 		sql.setEntity(defaultDao.getEntity(PersonInfoTab.class));
 		defaultDao.execute(sql);
-		System.out.println("²éÑ¯³öµÄÊı¾İÎª"+sql.getList(PersonInfoTab.class));
+		System.out.println("æŸ¥è¯¢å‡ºçš„æ•°æ®ä¸º"+sql.getList(PersonInfoTab.class));
 		return sql.getList(PersonInfoTab.class);
 	}
 	
@@ -103,6 +104,14 @@ public class RegisterDao4Common implements RegisterDaoIf {
 	    defaultDao.execute(sql);
 	    String address=sql.getList(String.class).get(0);
 		return address;
+	}
+
+	@Override
+	public void updatePersonInfo(String openid, PersonInfoTab p) {
+		// TODO Auto-generated method stub
+		PersonInfoTab person=defaultDao.fetch(PersonInfoTab.class,openid);
+		person=p;
+		defaultDao.update(person);
 	}
 	
 	

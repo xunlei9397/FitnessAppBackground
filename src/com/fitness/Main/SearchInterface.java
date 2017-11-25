@@ -29,12 +29,12 @@ public class SearchInterface {
 	@At("/editIsReceivedInt")
 	@Ok("json")
 	public String editIsReceivedInt(@Param("objectid")String objectid,@Param("content") String Content) {
-		String isReceived = "¿Î³Ì½ÓÊÜ³ö´í£¬ÇëÖØĞÂµã»÷½ÓÊÜ";
+		String isReceived = "è¯¾ç¨‹æ¥å—å‡ºé”™ï¼Œè¯·é‡æ–°ç‚¹å‡»æ¥å—";
 		try {
 			if(publish.editIsReceivedServer(objectid, Content)){
-				isReceived="¿Î³ÌÒÑÕı³£½ÓÊÕ";
+				isReceived="è¯¾ç¨‹å·²æ­£å¸¸æ¥æ”¶";
 			}else{
-				isReceived="¿Î³ÌÒÑ±»ËûÈË½ÓÊÕ";
+				isReceived="è¯¾ç¨‹å·²è¢«ä»–äººæ¥æ”¶";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

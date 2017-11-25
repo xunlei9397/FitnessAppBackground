@@ -83,57 +83,57 @@ public class MonitorModule extends HttpServlet {
 
 	
 	/*
-	 * ÓÃÓÚÉÏ´«¸öÈËÍ·Ïñ
+	 * ç”¨äºä¸Šä¼ ä¸ªäººå¤´åƒ
 	 */
 	@At("/uploadPersonIcon")
 	public void uploadPersonIcon(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8"); // ÉèÖÃresponse±àÂë·½Ê½
-		request.setCharacterEncoding("UTF-8"); // ÉèÖÃrequest±àÂë·½Ê½
+		response.setCharacterEncoding("UTF-8"); // è®¾ç½®responseç¼–ç æ–¹å¼
+		request.setCharacterEncoding("UTF-8"); // è®¾ç½®requestç¼–ç æ–¹å¼
 
-		// ´´½¨ÎÄ¼şÏîÄ¿¹¤³§¶ÔÏó
+		// åˆ›å»ºæ–‡ä»¶é¡¹ç›®å·¥å‚å¯¹è±¡
 		DiskFileItemFactory factory = new DiskFileItemFactory();
-		// ÉèÖÃÎÄ¼şÉÏ´«Â·¾¶
+		// è®¾ç½®æ–‡ä»¶ä¸Šä¼ è·¯å¾„
 		String upload = "../videofile";
-		// »ñÈ¡ÏµÍ³Ä¬ÈÏµÄÁÙÊ±ÎÄ¼ş±£´æÂ·¾¶£¬¸ÃÂ·¾¶ÎªTomcat¸ùÄ¿Â¼ÏÂµÄtempÎÄ¼ş¼Ğ
+		// è·å–ç³»ç»Ÿé»˜è®¤çš„ä¸´æ—¶æ–‡ä»¶ä¿å­˜è·¯å¾„ï¼Œè¯¥è·¯å¾„ä¸ºTomcatæ ¹ç›®å½•ä¸‹çš„tempæ–‡ä»¶å¤¹
 		String temp = System.getProperty("java.io.tmpdir");
-		// ÉèÖÃ»º³åÇø´óĞ¡Îª 1M
+		// è®¾ç½®ç¼“å†²åŒºå¤§å°ä¸º 1M
 		factory.setSizeThreshold(1024 * 1024);
-		// ÉèÖÃÁÙÊ±ÎÄ¼ş¼ĞÎªtemp
+		// è®¾ç½®ä¸´æ—¶æ–‡ä»¶å¤¹ä¸ºtemp
 		factory.setRepository(new File(temp));
-		// ÓÃ¹¤³§ÊµÀı»¯ÉÏ´«×é¼ş,ServletFileUpload ÓÃÀ´½âÎöÎÄ¼şÉÏ´«ÇëÇó
+		// ç”¨å·¥å‚å®ä¾‹åŒ–ä¸Šä¼ ç»„ä»¶,ServletFileUpload ç”¨æ¥è§£ææ–‡ä»¶ä¸Šä¼ è¯·æ±‚
 		ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
 
-		// ½âÎörequest
+		// è§£ærequest
 		try {
-			// ½âÎö½á¹û·ÅÔÚListÖĞ
+			// è§£æç»“æœæ”¾åœ¨Listä¸­
 			List<FileItem> list = servletFileUpload.parseRequest(request);
-			for (FileItem item : list) {// ±éÀúËùÓĞFileItem
-				// »ñÈ¡±íµ¥ÊôĞÔÃû³Æ
+			for (FileItem item : list) {// éå†æ‰€æœ‰FileItem
+				// è·å–è¡¨å•å±æ€§åç§°
 				String name = item.getFieldName();
 
-				// Èç¹ûÎªÎÄ±¾Óò
+				// å¦‚æœä¸ºæ–‡æœ¬åŸŸ
 				if (item.isFormField()) {
-					String value = item.getString();// »ñÈ¡ÓÃ»§ÊäÈë×Ö·û´®
+					String value = item.getString();// è·å–ç”¨æˆ·è¾“å…¥å­—ç¬¦ä¸²
 					System.out.println(item.getFieldName() + ":" + value);
 					request.setAttribute(name, value);
-				} else {// ·ñÔòÎªÎÄ¼şÓò
-						// »ñÈ¡ÉÏ´«ÎÄ¼şÃû
+				} else {// å¦åˆ™ä¸ºæ–‡ä»¶åŸŸ
+						// è·å–ä¸Šä¼ æ–‡ä»¶å
 					String filename = item.getName();
-					// ÒÔÁ÷µÄĞÎÊ½·µ»ØÉÏ´«ÎÄ¼şµÄÊı¾İÄÚÈİ
+					// ä»¥æµçš„å½¢å¼è¿”å›ä¸Šä¼ æ–‡ä»¶çš„æ•°æ®å†…å®¹
 					InputStream in = item.getInputStream();
-					// ´´½¨Ò»¸öÏòÖ¸¶¨ File ¶ÔÏó±íÊ¾µÄÎÄ¼şÖĞĞ´ÈëÊı¾İµÄÎÄ¼şÊä³öÁ÷
+					// åˆ›å»ºä¸€ä¸ªå‘æŒ‡å®š File å¯¹è±¡è¡¨ç¤ºçš„æ–‡ä»¶ä¸­å†™å…¥æ•°æ®çš„æ–‡ä»¶è¾“å‡ºæµ
 					FileOutputStream outs = new FileOutputStream(new File(upload, filename));
 					int len = 0;
-					// ¶¨Òå×Ö½ÚÊı×ébuffer, ´óĞ¡Îª1024
+					// å®šä¹‰å­—èŠ‚æ•°ç»„buffer, å¤§å°ä¸º1024
 					byte[] buffer = new byte[1024];
-					System.out.println("ÉÏ´«ÎÄ¼ş´óĞ¡£º" + item.getSize() + " KB");
+					System.out.println("ä¸Šä¼ æ–‡ä»¶å¤§å°ï¼š" + item.getSize() + " KB");
 					while ((len = in.read(buffer)) != -1) {
-						// ½«Ö¸¶¨ buffer Êı×éÖĞ´ÓÆ«ÒÆÁ¿ 0 ¿ªÊ¼µÄ len ¸ö×Ö½ÚĞ´Èë´ËÎÄ¼şÊä³öÁ÷
+						// å°†æŒ‡å®š buffer æ•°ç»„ä¸­ä»åç§»é‡ 0 å¼€å§‹çš„ len ä¸ªå­—èŠ‚å†™å…¥æ­¤æ–‡ä»¶è¾“å‡ºæµ
 						outs.write(buffer, 0, len);
 					}
-					in.close(); // ¹Ø±ÕÊäÈëÁ÷
-					outs.close(); // ¹Ø±ÕÊä³öÁ÷
+					in.close(); // å…³é—­è¾“å…¥æµ
+					outs.close(); // å…³é—­è¾“å‡ºæµ
 				}
 			}
 		} catch (FileUploadException e) {
@@ -142,7 +142,7 @@ public class MonitorModule extends HttpServlet {
 	}
 
 	/*
-	 * ÓÃÓÚÉÏ´«¸öÈËÍ·Ïñ
+	 * ç”¨äºä¸Šä¼ ä¸ªäººå¤´åƒ
 	 */
 	@At("/downloadPersonIcon")
 	@Ok("json")
@@ -192,7 +192,7 @@ public class MonitorModule extends HttpServlet {
 		writer.println("GET " + request.getRequestURL() + " " + request.getQueryString());
 
 		Map<String, String[]> params = request.getParameterMap();
-		Map<String, String> query = new HashMap<>();// ´ËmapÓÃÓÚ½ÓÊÕ´«´«¹ıÀ´µÄ×Ö·û´®
+		Map<String, String> query = new HashMap<>();// æ­¤mapç”¨äºæ¥æ”¶ä¼ ä¼ è¿‡æ¥çš„å­—ç¬¦ä¸²
 		String queryString = "";
 		for (String key : params.keySet()) {
 			String[] values = params.get(key);
@@ -202,7 +202,7 @@ public class MonitorModule extends HttpServlet {
 				queryString += key + "=" + value + "&";
 			}
 		}
-		// È¥µô×îºóÒ»¸ö¿Õ¸ñ
+		// å»æ‰æœ€åä¸€ä¸ªç©ºæ ¼
 		queryString = queryString.substring(0, queryString.length() - 1);
 		character = query;
 		writer.println("GET " + request.getRequestURL() + " " + queryString);
@@ -220,7 +220,7 @@ public class MonitorModule extends HttpServlet {
 				queryString += key + "=" + value + "&";
 			}
 		}
-		// È¥µô×îºóÒ»¸ö¿Õ¸ñ
+		// å»æ‰æœ€åä¸€ä¸ªç©ºæ ¼
 		queryString = queryString.substring(0, queryString.length() - 1);
 		writer.println("POST " + request.getRequestURL() + " " + queryString);
 	}

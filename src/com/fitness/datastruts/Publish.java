@@ -10,27 +10,27 @@ import org.nutz.dao.entity.annotation.Table;
 @Table("Publish")
 public class Publish {
 /*
- * ´ËÀàÊÇ·¢²¼·½µÄÊı¾İ½á¹¹
+ * æ­¤ç±»æ˜¯å‘å¸ƒæ–¹çš„æ•°æ®ç»“æ„
  * */
 	
 	/*@author("liuhaijian")
-	 * ´Ë¿Ì·¢²¼¿Î³ÌµÄobjectid£ºopenid_yyyymmddhh_24miss¸ñÊ½µÄÊ±¼ä×é³É
-	 * ·¢²¼·½µÄopenid
-	 * Î¢ĞÅºÅ wechatnumber,ÈÃÊ¹ÓÃÕß×Ô¼ºÌî£¬¿É²»Ìî
-	 * µç»°ºÅphonenumber£¬ÈÃÊ¹ÓÃÕß×Ô¼ºÌî£¬Ò»¶¨ÒªÌî
-	 * ¿Î³Ìobject
-	 * Ê±¼ätime
-	 * µØµãaddress
-	 * ¼Û¸ñprice
-	 * ½¡Éí·¿Ãû³Æfitroom
-	 * ±¸×¢remarks
-	 * ½¡Éí·¿µÄµØÍ¼µØÖ· Î³¶ÈponitX
-	 * ½¡Éí·¿µÄµØÍ¼µØÖ· ¾­¶ÈponitY
-	 * µØÍ¼¼¶±ğ mapClass
+	 * æ­¤åˆ»å‘å¸ƒè¯¾ç¨‹çš„objectidï¼šopenid_yyyymmddhh_24missæ ¼å¼çš„æ—¶é—´ç»„æˆ
+	 * å‘å¸ƒæ–¹çš„openid
+	 * å¾®ä¿¡å· wechatnumber,è®©ä½¿ç”¨è€…è‡ªå·±å¡«ï¼Œå¯ä¸å¡«
+	 * ç”µè¯å·phonenumberï¼Œè®©ä½¿ç”¨è€…è‡ªå·±å¡«ï¼Œä¸€å®šè¦å¡«
+	 * è¯¾ç¨‹object
+	 * æ—¶é—´time
+	 * åœ°ç‚¹address
+	 * ä»·æ ¼price
+	 * å¥èº«æˆ¿åç§°fitroom
+	 * å¤‡æ³¨remarks
+	 * å¥èº«æˆ¿çš„åœ°å›¾åœ°å€ çº¬åº¦ponitX
+	 * å¥èº«æˆ¿çš„åœ°å›¾åœ°å€ ç»åº¦ponitY
+	 * åœ°å›¾çº§åˆ« mapClass
 	 * ===================
-	 * ¿Î³ÌÊÇ·ñ±»½ÓÊÕisReceived
-	 * ÈÎÎñÊÇ·ñ±»½ÓÊÕYN
-	 * ½ÌÁ·¸øµÄÆÀ¼Ûevalute:·ÖÎª²îÆÀ£¬ÖĞÆÀ£¬ºÃÆÀ£¬»ı·ÖÖÆ¡£
+	 * è¯¾ç¨‹æ˜¯å¦è¢«æ¥æ”¶isReceived
+	 * ä»»åŠ¡æ˜¯å¦è¢«æ¥æ”¶YN
+	 * æ•™ç»ƒç»™çš„è¯„ä»·evalute:åˆ†ä¸ºå·®è¯„ï¼Œä¸­è¯„ï¼Œå¥½è¯„ï¼Œç§¯åˆ†åˆ¶ã€‚
 	 * */
 	@Name
 	private String objectid;

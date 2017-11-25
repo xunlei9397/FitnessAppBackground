@@ -2,14 +2,14 @@ package com.fitness.datastruts;
 
 import org.nutz.dao.entity.annotation.Table;
 
-//¼ÇÂ¼ÓÃ»§ËµËµÆÀÂÛ±í
+//è®°å½•ç”¨æˆ·è¯´è¯´è¯„è®ºè¡¨
 @Table("commentTab")
 public class CommentTab {
 
 	/*
-	 * ÆÀÂÛÓÃ»§µÄopenid
-	 * ±»ÆÀÂÛµÄÏûÏ¢µÄssid
-	 * ÆÀÂÛµÄÄÚÈİ
+	 * è¯„è®ºç”¨æˆ·çš„openid
+	 * è¢«è¯„è®ºçš„æ¶ˆæ¯çš„ssid
+	 * è¯„è®ºçš„å†…å®¹
 	 * */
 	private String openid;
 	

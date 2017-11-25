@@ -56,7 +56,7 @@ public class OpTimeTableDao4Common  implements OpTimeTableDaoIf {
 
 	@Override
 	public void insertClass(List<TranTimeTable> timeTable) {
-		//´Ë´¦ĞèÒªÓĞÒ»¸ö·½·¨°Ñmap½âÎöºóÖ±½Ó·Åµ½sqlÓï¾äÖĞ£¬ÓÃ¶ººÅ·Ö¸ôµÄÄÚÈİ
+		//æ­¤å¤„éœ€è¦æœ‰ä¸€ä¸ªæ–¹æ³•æŠŠmapè§£æåç›´æ¥æ”¾åˆ°sqlè¯­å¥ä¸­ï¼Œç”¨é€—å·åˆ†éš”çš„å†…å®¹
 		List<TranTimeTable> tranTimeTable=new ArrayList<TranTimeTable>();
 		
 		for(TranTimeTable table:timeTable){
@@ -96,7 +96,7 @@ public class OpTimeTableDao4Common  implements OpTimeTableDaoIf {
 		sql.setCallback(Sqls.callback.entities());
 		sql.setEntity(defaultDao.getEntity(TranTimeTable.class));
 		defaultDao.execute(sql);
-		System.out.println("²éÑ¯³öµÄÊı¾İÎª"+sql.getList(TranTimeTable.class));
+		System.out.println("æŸ¥è¯¢å‡ºçš„æ•°æ®ä¸º"+sql.getList(TranTimeTable.class));
 		return sql.getList(TranTimeTable.class);
 	}
 

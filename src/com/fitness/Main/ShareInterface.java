@@ -1,24 +1,14 @@
 package com.fitness.Main;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -147,49 +137,49 @@ public class ShareInterface {
 	}
 
 	/*
-	 * ÓÃÓÚÉÏ´«¸öÈËÍ¼Æ¬ÊÓÆµ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Æµ
 	 */
 	@At("/uploadPicVid")
 	public Boolean uploadPersonIcon(@Param("openid") String openid, @Param("ssid") String ssid,
 			@Param("isPic") Boolean isPic, HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
-		// isPic×Ö¶ÎÅĞ¶ÏÊÇÊÓÆµ»¹ÊÇÎÄ¼ş£¬µ±ÎªtrueÊ±ÎªÍ¼Æ¬£¬µ±ÎªfalseÊ±ÎªÊÓÆµ
+		// isPicï¿½Ö¶ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ÎªtrueÊ±ÎªÍ¼Æ¬ï¿½ï¿½ï¿½ï¿½ÎªfalseÊ±Îªï¿½ï¿½Æµ
 		Boolean b=false;
-		response.setCharacterEncoding("UTF-8"); // ÉèÖÃresponse±àÂë·½Ê½
-		request.setCharacterEncoding("UTF-8"); // ÉèÖÃrequest±àÂë·½Ê½
-		// ´´½¨ÎÄ¼şÏîÄ¿¹¤³§¶ÔÏó
+		response.setCharacterEncoding("UTF-8"); // ï¿½ï¿½ï¿½ï¿½responseï¿½ï¿½ï¿½ë·½Ê½
+		request.setCharacterEncoding("UTF-8"); // ï¿½ï¿½ï¿½ï¿½requestï¿½ï¿½ï¿½ë·½Ê½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		DiskFileItemFactory factory = new DiskFileItemFactory();
-		// ÉèÖÃÎÄ¼şÉÏ´«Â·¾¶
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½Â·ï¿½ï¿½
 		String upload = "/personFile/" + openid;
-		// ´Ë´¦ÅĞ¶ÏÈôÎÄ¼ş¼Ğ²»´æÔÚÔò´´½¨
+		// ï¿½Ë´ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ğ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò´´½ï¿½
 
-		// »ñÈ¡ÏµÍ³Ä¬ÈÏµÄÁÙÊ±ÎÄ¼ş±£´æÂ·¾¶£¬¸ÃÂ·¾¶ÎªTomcat¸ùÄ¿Â¼ÏÂµÄtempÎÄ¼ş¼Ğ
+		// ï¿½ï¿½È¡ÏµÍ³Ä¬ï¿½Ïµï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ÎªTomcatï¿½ï¿½Ä¿Â¼ï¿½Âµï¿½tempï¿½Ä¼ï¿½ï¿½ï¿½
 		String temp = System.getProperty("java.io.tmpdir");
-		// ÉèÖÃ»º³åÇø´óĞ¡Îª 1M
+		// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡Îª 1M
 		factory.setSizeThreshold(1024 * 1024);
-		// ÉèÖÃÁÙÊ±ÎÄ¼ş¼ĞÎªtemp
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½Îªtemp
 		factory.setRepository(new File(temp));
-		// ÓÃ¹¤³§ÊµÀı»¯ÉÏ´«×é¼ş,ServletFileUpload ÓÃÀ´½âÎöÎÄ¼şÉÏ´«ÇëÇó
+		// ï¿½Ã¹ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½,ServletFileUpload ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
 		ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
 
-		// ½âÎörequest
+		// ï¿½ï¿½ï¿½ï¿½request
 		try {
-			// ½âÎö½á¹û·ÅÔÚListÖĞ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Listï¿½ï¿½
 			List<FileItem> list = servletFileUpload.parseRequest(request);
-			for (FileItem item : list) {// ±éÀúËùÓĞFileItem
-				// »ñÈ¡±íµ¥ÊôĞÔÃû³Æ
+			for (FileItem item : list) {// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FileItem
+				// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				String name = item.getFieldName();
 
-				// Èç¹ûÎªÎÄ±¾Óò
+				// ï¿½ï¿½ï¿½Îªï¿½Ä±ï¿½ï¿½ï¿½
 				if (item.isFormField()) {
-					String value = item.getString();// »ñÈ¡ÓÃ»§ÊäÈë×Ö·û´®
+					String value = item.getString();// ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 					System.out.println(item.getFieldName() + ":" + value);
 					request.setAttribute(name, value);
-				} else {// ·ñÔòÎªÎÄ¼şÓò
-						// »ñÈ¡ÉÏ´«ÎÄ¼şÃû
+				} else {// ï¿½ï¿½ï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½
+						// ï¿½ï¿½È¡ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 					String filename = item.getName();
 					filename = filename.hashCode() + "." + filename.substring(filename.lastIndexOf(".") + 1);
-					// ´Ë´¦½«ÓÃ»§Í·ÏñµØÖ·ĞÅÏ¢±£´æµ½Êı¾İ¿â
+					// ï¿½Ë´ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Í·ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½İ¿ï¿½
 					PicVidAddress address = new PicVidAddress();
 					address.setOpenid(openid);
 					address.setSsid(ssid);
@@ -199,7 +189,7 @@ public class ShareInterface {
 						address.setVidAddress("http://47.94.149.197:"+request.getLocalPort()+upload + "/" + filename);
 					}
 					shareInfo.updateAddressServer(address, isPic);
-					// ÒÔÁ÷µÄĞÎÊ½·µ»ØÉÏ´«ÎÄ¼şµÄÊı¾İÄÚÈİ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					InputStream in = item.getInputStream();
 					upload="../webapps"+upload;
 					File f = new File(upload);
@@ -207,18 +197,18 @@ public class ShareInterface {
 						f.mkdirs();
 					}
 
-					// ´´½¨Ò»¸öÏòÖ¸¶¨ File ¶ÔÏó±íÊ¾µÄÎÄ¼şÖĞĞ´ÈëÊı¾İµÄÎÄ¼şÊä³öÁ÷
+					// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ File ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					FileOutputStream outs = new FileOutputStream(new File(upload, filename));
 					int len = 0;
-					// ¶¨Òå×Ö½ÚÊı×ébuffer, ´óĞ¡Îª1024
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½buffer, ï¿½ï¿½Ğ¡Îª1024
 					byte[] buffer = new byte[1024];
-					System.out.println("ÉÏ´«ÎÄ¼ş´óĞ¡£º" + item.getSize() + " KB");
+					System.out.println("ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½" + item.getSize() + " KB");
 					while ((len = in.read(buffer)) != -1) {
-						// ½«Ö¸¶¨ buffer Êı×éÖĞ´ÓÆ«ÒÆÁ¿ 0 ¿ªÊ¼µÄ len ¸ö×Ö½ÚĞ´Èë´ËÎÄ¼şÊä³öÁ÷
+						// ï¿½ï¿½Ö¸ï¿½ï¿½ buffer ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½Æ«ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½Ê¼ï¿½ï¿½ len ï¿½ï¿½ï¿½Ö½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						outs.write(buffer, 0, len);
 					}
-					in.close(); // ¹Ø±ÕÊäÈëÁ÷
-					outs.close(); // ¹Ø±ÕÊä³öÁ÷
+					in.close(); // ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					outs.close(); // ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 			b=true;
