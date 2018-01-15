@@ -1,4 +1,4 @@
-package com.finess.util;
+package com.fitness.util;
 
 import org.nutz.mvc.annotation.At;
 

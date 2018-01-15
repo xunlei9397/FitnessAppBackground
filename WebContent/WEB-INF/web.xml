@@ -26,9 +26,22 @@
 		</init-param>
 	</filter>
 
+<filter>
+   <filter-name>encodingFilter</filter-name>
+   <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+   <async-supported>true</async-supported>
+   <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+   </init-param>
+</filter>
+
 	<filter-mapping>
 		<filter-name>nutz</filter-name>
 		<url-pattern>*.eo</url-pattern>
 	</filter-mapping>
+	
+	
+	
 
 </web-app>

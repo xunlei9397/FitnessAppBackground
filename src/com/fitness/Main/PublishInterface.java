@@ -31,21 +31,39 @@ public class PublishInterface {
 	@Ok("json")
 	public Boolean addObjectInt(@Param("objectid") String objectid, @Param("openid") String openid,
 			@Param("wechatnumber") String wechatnumber, @Param("phonenumber") String phonenumber,
-			@Param("object") String object, @Param("time") Date time, @Param("address") String address,
-			@Param("fitroom") String fitroom, @Param("price") int price, @Param("remarks") String remarks) {
+			@Param("object") String object, @Param("time") Date time, @Param("province") String province,
+			@Param("county") String county,@Param("city") String city,@Param("fitroom") String fitroom, 
+			@Param("price")int  price, @Param("remarks") String remarks,@Param("detailAddress")String detailAddress,
+			@Param("payway")String payway ) {
 		Boolean b = false;
+		Date now=new Date();
+		now.getTime();
 		try {
 			Publish pub = new Publish();
-			pub.setObjectid(objectid);
+			pub.setObjectid(openid+""+now.getTime());
 			pub.setOpenid(openid);
 			pub.setPhonenumber(phonenumber);
 			pub.setWechatnumber(wechatnumber);
 			object = new String(object.getBytes("ISO-8859-1"), "UTF-8");
+			province=new String(province.getBytes("ISO-8859-1"),"UTF-8");
+			city=new String(city.getBytes("ISO-8859-1"),"UTF-8");
+			county=new String(county.getBytes("ISO-8859-1"),"UTF-8");
+			fitroom=new String(fitroom.getBytes("ISO-8859-1"), "UTF-8");
+			remarks=new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
+			detailAddress=new String(detailAddress.getBytes("ISO-8859-1"), "UTF-8");
+			payway=new String(payway.getBytes("ISO-8859-1"), "UTF-8");
+			
+			
+			
 			pub.setObject(object);
 			pub.setTime(time);
-			pub.setAddress(address);
+			pub.setProvince(province);
+			pub.setCity(city);
+			pub.setCounty(county);
 			pub.setPrice(price);
+			pub.setPayway(payway);
 			pub.setFitroom(fitroom);
+			pub.setDetailAddress(detailAddress);
 			pub.setRemarks(remarks);
 			publish.addObjectServer(pub);
 			b = true;
@@ -53,6 +71,7 @@ public class PublishInterface {
 			// TODO Auto-generated catch block
 			logger.error("addObjectInt" + e.getMessage());
 			e.printStackTrace();
+			return b;
 		}
 		return b;
 
@@ -231,7 +250,8 @@ public class PublishInterface {
 
 	@At("/searchFitRoomListInt")
 	@Ok("json")
-	public List<FitRoomList> searchFitRoomListInt(@Param("province")String province, @Param("city")String city,@Param("county")String county) {
+	public List<FitRoomList> searchFitRoomListInt(@Param("province")String province, @Param("city")String city,@Param("county")String county,
+			@Param("payway")String payway, @Param("time") Date time,@Param("price")int  price) {
 		List<FitRoomList> list=new ArrayList<>();
 		try {
 			list=publish.searchFitRoomListServer(province,city,county);

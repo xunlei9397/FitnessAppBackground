@@ -21,8 +21,13 @@ public class Publish {
 	 * 课程object
 	 * 时间time
 	 * 地点address
+	 * 省province
+	 * 市city
+	 * 县/区 county
 	 * 价格price
+	 * 付款方式payway
 	 * 健身房名称fitroom
+	 * 健身房详细地址detailAddress
 	 * 备注remarks
 	 * 健身房的地图地址 纬度ponitX
 	 * 健身房的地图地址 经度ponitY
@@ -45,11 +50,20 @@ public class Publish {
 	
 	private Date time;
 	
-	private String address;
+	
+	private String province;
+	
+	private String county;
+	
+	private String city;
 	
 	private int price;
 	
+	private String payway;
+	
 	private String fitroom;
+	
+	private String detailAddress;
 	
 	private String remarks;
 	
@@ -104,22 +118,7 @@ public class Publish {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int  getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
+	
 
 	public String getIsReceived() {
 		return isReceived;
@@ -195,14 +194,57 @@ public class Publish {
 		this.fitroom = fitroom;
 	}
 
-	@Override
-	public String toString() {
-		return "Publish [objectid=" + objectid + ", openid=" + openid + ", wechatnumber=" + wechatnumber
-				+ ", phonenumber=" + phonenumber + ", object=" + object + ", time=" + time + ", address=" + address
-				+ ", price=" + price + ", fitroom=" + fitroom + ", remarks=" + remarks + ", isReceived=" + isReceived
-				+ ", YN=" + YN + ", evalute=" + evalute + ", pointX=" + pointX + ", pointY=" + pointY + ", mapClass="
-				+ mapClass + "]";
+	public int getPrice() {
+		return price;
 	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
+
+	public String getPayway() {
+		return payway;
+	}
+
+	public void setPayway(String payway) {
+		this.payway = payway;
+	}
+
+	
+
+	
 	
 	
 	
