@@ -2,8 +2,9 @@ package com.fitness.datastruts;
 
 import java.util.Date;
 
+import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Table;
-@Table("Search")
+@Table("search")
 public class Search {
 
 	
@@ -14,6 +15,7 @@ public class Search {
 	/*
 	 * 搜索方的openid
 	 * 要教的课程object
+	 * 要教的课程objectid
 	 * 时间time
 	 * 地点address
 	 * 价格price
@@ -22,6 +24,8 @@ public class Search {
 	 * */
 	
 	private String openid;
+	
+	private String objectid;
 	
 	private String object;
 	
@@ -91,12 +95,14 @@ public class Search {
 		this.pubwechatnumber = pubwechatnumber;
 	}
 
-	@Override
-	public String toString() {
-		return "Search [openid=" + openid + ", object=" + object + ", time=" + time + ", address=" + address
-				+ ", price=" + price + ", pubphonenumber=" + pubphonenumber + ", pubwechatnumber=" + pubwechatnumber
-				+ "]";
+	public String getObjectid() {
+		return objectid;
 	}
+
+	public void setObjectid(String objectid) {
+		this.objectid = objectid;
+	}
+
 	
 	
 

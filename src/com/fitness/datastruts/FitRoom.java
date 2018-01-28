@@ -7,13 +7,13 @@ import org.nutz.dao.entity.annotation.Table;
 public class FitRoom {
 
 	/*
-	 * ·¢²¼Õßopenid
-	 * Ç°Ì¨µç»° frontphone
-	 * ÓªÒµÊ±¼äbusinessHour
-	 * »áÔ±²ã´ÎmemberLevel
+	 * å¥èº«æˆ¿åç§°
+	 * å‰å°ç”µè¯ frontphone
+	 * è¥ä¸šæ—¶é—´businessHour
+	 * ä¼šå‘˜å±‚æ¬¡memberLevel
 	 * */
 	@Name
-	private String openid;
+	private String fitRoomName;
 	
 	private String frontphone;
 	
@@ -21,13 +21,15 @@ public class FitRoom {
 	
 	private String memberLevel;
 
-	public String getOpenid() {
-		return openid;
+
+	public String getFitRoomName() {
+		return fitRoomName;
 	}
 
-	public void setOpenid(String openid) {
-		this.openid = openid;
+	public void setFitRoomName(String fitRoomName) {
+		this.fitRoomName = fitRoomName;
 	}
+
 
 	public String getFrontphone() {
 		return frontphone;
@@ -53,11 +55,7 @@ public class FitRoom {
 		this.memberLevel = memberLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "FitRoom [openid=" + openid + ", frontphone=" + frontphone + ", businessHour=" + businessHour
-				+ ", memberLevel=" + memberLevel + "]";
-	}
+
 	
 	
 }

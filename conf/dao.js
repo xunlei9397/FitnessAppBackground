@@ -11,7 +11,7 @@ var ioc = {
     		fields : {
     		
     			driverClass : 'com.mysql.jdbc.Driver',  //虚拟机的oracle
-    			jdbcUrl : 'jdbc:mysql://localhost:3306/fit?useUnicode=true&amp;characterEncoding=UTF-8',
+    			jdbcUrl : 'jdbc:mysql://localhost:3306/fit',
     			user : 'root',
     			password : 'root',
     		

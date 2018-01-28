@@ -27,21 +27,25 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-$.ajax({
-url:"<%=basePath%>publishInterface/fitObjectInt.eo",
-					method : "post",
-					dataType : "json",
-					success : function(res) {
-						$.each(res, function(i, n) {
-							$("#tbody").append(
-									"<tr><td>" + (i + 1) + ":" + n
-											+ "</td></tr>")
-						});
-					}
-				})
+	getObject();
 			}); 
-	
-	 function objectAdd() {  
+function getObject(){
+	$("#tbody").empty()
+	$.ajax({
+		url:"<%=basePath%>publishInterface/fitObjectInt.eo",
+							method : "post",
+							dataType : "json",
+							success : function(res) {
+								$.each(res, function(i, n) {
+									$("#tbody").append(
+											"<tr><td>" + (i + 1) + ":" + n+ "</td>"+
+											"<td><button  onclick=objectDelete('"+n+"') >删除</button></td></tr>")
+								});
+							}
+						})
+}
+	 function objectAdd() { 
+		 if($("#object").val().length>0){
 	        $.ajax({  
 	                cache: true,  
 	                type: "POST",  
@@ -55,21 +59,24 @@ url:"<%=basePath%>publishInterface/fitObjectInt.eo",
 	                	window.location.href='<%=basePath%>hello.jsp';
 	                    //alert("SUCCESS!"+data);  
 	                }  
-	            });  
+	            });
+		 }else{
+			 alert("请输入课程")
+		 }
 	    } 
-	 function objectDelete() {  
+	 function objectDelete(object) {  
 	        $.ajax({  
 	                cache: true,  
 	                type: "POST",  
 	                url:"<%=basePath%>publishInterface/deleteFitObjectInt.eo",  
-	                data:$('#form2').serialize(),// 你的formid  
+	                data:{'object':object},// 你的formid  
 	                async: false,  
 	                error: function(request) {  
 	                    alert("Connection error:"+request.error);  
 	                },  
 	                success: function(data) {  
 	                	
-	                	window.location.href='<%=basePath%>hello.jsp';
+	                	getObject();
 
 			}
 		});
@@ -83,23 +90,19 @@ url:"<%=basePath%>publishInterface/fitObjectInt.eo",
 		<thead>
 			<tr>
 				<th>当前可选择课程</th>
+				<th>删除按钮</th>
 			</tr>
 		</thead>
 		<tbody id="tbody"></tbody>
 	</table>
 	<form id="form1" method="post" onsubmit="return objectAdd();">
 		<h1>增加课程</h1>
-		<INPUT TYPE=TEXT NAME="json">
+		<INPUT id="object" TYPE=TEXT NAME="json">
 		<h6>增加课程说明：请在输入框中输入要增加的课程，输入多个课程请用 英文逗号 隔开，然后点击submit</h6>
-		<INPUT TYPE=button value="submit" onclick="objectAdd();">
+		<h6>若您添加的课程没有被添加，则说明您输入的课程与已有课程重复</h6>
+		<INPUT TYPE=button value="增加课程" onclick="objectAdd();">
 	</form>
 
 
-	<form id="form2" method="post">
-		<h1>删除课程</h1>
-		<INPUT TYPE=TEXT NAME="json">
-		<h6>删除课程说明：请在输入框中输入要删除的课程，要删除多个课程请用 英文逗号 隔开，然后点击delete</h6>
-		<INPUT TYPE=button value="submit" onclick="objectDelete();">
-	</form>
 </body>
 </html>

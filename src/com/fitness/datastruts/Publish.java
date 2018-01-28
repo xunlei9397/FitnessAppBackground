@@ -1,8 +1,11 @@
 package com.fitness.datastruts;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Many;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
@@ -78,6 +81,9 @@ public class Publish {
 	private double pointY;
 	
 	private int mapClass;
+	
+	@Many(target = Search.class, field = "objectid")
+	private List<Search> receiver;
 
 	public String getObjectid() {
 		return objectid;
@@ -242,8 +248,16 @@ public class Publish {
 		this.payway = payway;
 	}
 
-	
+	public List<Search> getReceiver() {
+		return receiver;
+	}
 
+	public void setReceiver(List<Search> receiver) {
+		this.receiver = receiver;
+	}
+
+	
+	
 	
 	
 	

@@ -1,7 +1,10 @@
 package com.fitness.Main;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -11,6 +14,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.Publish;
 import com.fitness.server.publish.PublishService;
 import com.fitness.server.search.SearchServer;
 
@@ -95,6 +99,22 @@ public class SearchInterface {
 	   return fitRoom;   
 	}
 	
+   @At("/searchResult")
+   @Ok("json")
+   public List<Publish> searchResult(@Param("province")String province, @Param("city")String city,@Param("county")String county,
+		   @Param("price")String  priceRange,@Param("payway")String payway, @Param("time")String time,@Param("object")String object){
+	   Map<String,Object> map=new HashMap<>();
+	   map.put("province", province);
+	   map.put("city", city);
+	   map.put("county", county);
+	   map.put("pricedown", priceRange.split("-")[0]);
+	   map.put("priceup", priceRange.split("-")[1]);
+	   map.put("payway", payway);
+	   map.put("time", time);
+	   map.put("object", object);
+	   
+	   return searchServer.searchResultServer(map);
+   }
 	
 	
 	

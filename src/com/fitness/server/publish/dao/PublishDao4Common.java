@@ -3,12 +3,15 @@ package com.fitness.server.publish.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.nutz.dao.Chain;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
+import org.nutz.dao.TableName;
 import org.nutz.dao.sql.Sql;
 import org.nutz.dao.sql.SqlCallback;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -16,6 +19,7 @@ import org.nutz.ioc.loader.annotation.IocBean;
 
 import com.fitness.datastruts.FitRoom;
 import com.fitness.datastruts.Publish;
+import com.fitness.datastruts.Search;
 import com.fitness.datastruts.FitRoomList;
 import com.fitness.datastruts.PersonInfoTab;
 
@@ -139,11 +143,9 @@ public class PublishDao4Common implements PublishDaoIf {
 	}
 
 	@Override
-	public List<String> deleteFitObject(String[] object) {
-		for(String s:object){
-			Sql	sql = Sqls.create("delete from fitobject where name ='"+s+"'");
-			defaultdao.execute(sql);
-		}
+	public List<String> deleteFitObject(String object) {		
+			Sql	sql = Sqls.create("delete from fitobject where name ='"+object+"'");
+			defaultdao.execute(sql);		
 		return fitObject();
 	}
 
@@ -154,7 +156,7 @@ public class PublishDao4Common implements PublishDaoIf {
 
 	@Override
 	public void deleteFitRoomList(String fitroomId) {
-		Sql sql=Sqls.create("delete from fitroom where  fitroomId=@fitroomId");
+		Sql sql=Sqls.create("delete from fitroomlist where  fitRoomId=@fitroomId");
 	    sql.params().set("fitroomId",fitroomId);
 	    defaultdao.execute(sql);
 		
@@ -171,14 +173,49 @@ public class PublishDao4Common implements PublishDaoIf {
 	@Override
 	public List<FitRoomList> searchFitRoomList(String province,String city, String county) {
 		// TODO Auto-generated method stub
-		Sql sql=Sqls.create("select * from fitroomlist where  province=@province or city=@city or county=@county ");
-		sql.params().set("province", province);
-		sql.params().set("city", city);
-		sql.params().set("county", county);
-		sql.setCallback(Sqls.callback.entities());
-		sql.setEntity(defaultdao.getEntity(FitRoomList.class));
-		defaultdao.execute(sql);
-		return sql.getList(FitRoomList.class);
+		List<FitRoomList> fitroom=new LinkedList<>();
+		//若传入的值为默认值，则查出所有的地区，否则按照给定的地区查询
+		if(province.equals("省份")&city.equals("地级市")&county.equals("市、县级市")) {
+			fitroom=defaultdao.query(FitRoomList.class, null);
+		}else {
+		fitroom=defaultdao.query(FitRoomList.class, Cnd.where("province", "=", province).
+				or("city", "=", city).or("county", "=", county));
+		}
+		List<FitRoomList> fitroom2=new ArrayList<>(); 
+//		Sql sql=Sqls.create("select * from fitroomlist where  province=@province or city=@city or county=@county ");
+//		sql.params().set("province", province);
+//		sql.params().set("city", city);
+//		sql.params().set("county", county);
+//		sql.setCallback(Sqls.callback.entities());
+//		sql.setEntity(defaultdao.getEntity(FitRoomList.class));
+//		defaultdao.execute(sql);
+		for(final FitRoomList fit:fitroom ) {
+			TableName.run(fit.getFitRoomName(), new Runnable() {       
+				public void run() {           
+					defaultdao.fetchLinks(fit, "fitroom");    
+					}    
+				});
+			fitroom2.add(fit);
+				
+			}
+		return fitroom2;
+	}
+
+	@Override
+	public List<Publish> publishList(String openid) {
+		List<Publish> publish=defaultdao.query(Publish.class, Cnd.where("openid", "=", openid));
+		List<Publish> publish2=new ArrayList<>();   
+		for(final Publish pub:publish ) {
+		TableName.run(pub.getObjectid(), new Runnable() {       
+			public void run() {           
+				defaultdao.fetchLinks(pub, "receiver");    
+				}    
+			});
+		publish2.add(pub);
+			
+		}	
+		
+		return publish2;
 	}
 
 

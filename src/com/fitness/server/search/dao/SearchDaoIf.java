@@ -1,8 +1,10 @@
 package com.fitness.server.search.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.Publish;
 
 public interface SearchDaoIf {
 
@@ -16,7 +18,7 @@ public interface SearchDaoIf {
 	
 	List<FitRoom> queryFitRoom(String openid); 
 	
-	
+	List<Publish> searchResult(Map map);
 	
 	
 }

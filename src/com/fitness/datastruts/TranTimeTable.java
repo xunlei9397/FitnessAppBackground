@@ -7,11 +7,11 @@ import org.nutz.dao.entity.annotation.Table;
 @Table("TranTimeTable")
 public class TranTimeTable {
 
-	/*½ÌÁ·¿Î±í
-	 * ¼ÇÂ¼ÄÚÈİ½ÌÁ·´ÓÖÜÒ»µ½ÖÜÈÕµÄ¿Î³Ì
-	 *Ö÷¼üÎª½ÌÁ·µÄuserId 
-	 *ÆäÖĞÖÜÒ»µ½ÖÜÈÕ×Ö¶ÎÏÂ¼ÇÂ¼½ÌÁ·µÄÉÏ¿Î¿ÆÄ¿
-	 *startTime¡¢endTime ¼ÇÂ¼ÉÏ¿Î¿ªÊ¼½áÊøÊ±¼ä
+	/*æ•™ç»ƒè¯¾è¡¨
+	 *è®°å½•å†…å®¹æ•™ç»ƒä»å‘¨ä¸€åˆ°å‘¨æ—¥çš„è¯¾ç¨‹
+	 *ä¸»é”®ä¸ºæ•™ç»ƒçš„userId 
+	 *å…¶ä¸­å‘¨ä¸€åˆ°å‘¨æ—¥å­—æ®µä¸‹è®°å½•æ•™ç»ƒçš„ä¸Šè¯¾ç§‘ç›®
+	 *startTimeã€endTime è®°å½•ä¸Šè¯¾å¼€å§‹ç»“æŸæ—¶é—´
 	*/
 	
 	 private int userId;

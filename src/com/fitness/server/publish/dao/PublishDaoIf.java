@@ -19,6 +19,7 @@ public interface PublishDaoIf {
 	 * 发布者填写健身房信息
 	 * 为课程下拉列表提供课程名称
 	 * 写入课程名称到数据库
+	 * 查询发布者发布课程及接课人员
 	 * */
 	
 	
@@ -50,7 +51,7 @@ public interface PublishDaoIf {
 	
 	List<String> addFitObject(List<String> object);
 	
-	List<String> deleteFitObject(String[] object);
+	List<String> deleteFitObject(String object);
 	
 	/*
 	 *添加省份-区/县-健身房名称
@@ -66,4 +67,7 @@ public interface PublishDaoIf {
 	
 	List<FitRoomList> searchFitRoomList(String province,String city,String county);
 	
+	List<Publish> publishList(String openid);
+	
+
 }

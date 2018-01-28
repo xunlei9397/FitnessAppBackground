@@ -27,6 +27,11 @@ public class PublishInterface {
 	private PublishService publish;
 	Logger logger = Logger.getLogger(PublishInterface.class.getName());
 
+//查出接课者的昵称、电话号码
+//	SELECT nickname,phonenumber FROM personinfotab where openid =
+//	( select openid from search where objectid in( select objectid from publish where openid='890uhhhbn2'));
+
+	
 	@At("/addObjectInt")
 	@Ok("json")
 	public Boolean addObjectInt(@Param("objectid") String objectid, @Param("openid") String openid,
@@ -121,12 +126,12 @@ public class PublishInterface {
 
 	@At("/addFitRoomInt")
 	@Ok("json")
-	public Boolean addFitRoomInt(@Param("openid") String openid, @Param("frontphone") String frontphone,
+	public Boolean addFitRoomInt(@Param("fitRoomName") String fitRoomName, @Param("frontphone") String frontphone,
 			@Param("businessHour") String businessHour, @Param("memberLevel") String memberLevel) {
 		Boolean b = false;
 		try {
 			FitRoom fit = new FitRoom();
-			fit.setOpenid(openid);
+			fit.setFitRoomName(fitRoomName);
 			fit.setFrontphone(frontphone);
 			fit.setBusinessHour(businessHour);
 			fit.setMemberLevel(memberLevel);
@@ -181,16 +186,12 @@ public class PublishInterface {
 
 	@At("/deleteFitObjectInt")
 	@Ok("json")
-	public List<String> deleteFitObjectInt(@Param("json") String[] json) {
+	public List<String> deleteFitObjectInt(@Param("object") String object) {
 		// 传入的数据应该是["1","2","3","4"]数组形式
 		List<String> list = new LinkedList<>();
-		try {
-
-			if (json.length == 0) {
-				list.add("您传入的数组长度为空");
-			} else {
-				list = publish.deleteFitObjectServer(json);
-			}
+		try {			
+				list = publish.deleteFitObjectServer(object);
+			
 		} catch (Exception e) {
 			logger.error("addFitObjectInt" + e.getMessage());
 			e.printStackTrace();
@@ -202,7 +203,8 @@ public class PublishInterface {
 	@At("/addFitRoomListInt")
 	@Ok("json")
 	public Boolean addFitRoomListInt(@Param("province") String province,@Param("city") String city, @Param("county") String county,
-			@Param("fitRoomName") String fitRoomName) {
+			@Param("addressRemarks") String addressRemarks,	@Param("fitRoomName") String fitRoomName,@Param("frontphone") String frontphone,
+			@Param("businessHour") String businessHour, @Param("memberLevel") String memberLevel) {
 		Boolean b=false;
 		FitRoomList fitroom = new FitRoomList();
 		try {
@@ -211,7 +213,9 @@ public class PublishInterface {
 			fitroom.setCounty(county);
 			fitroom.setFitRoomName(fitRoomName);
 			fitroom.setFitRoomId(String.valueOf(Math.random()+fitRoomName.hashCode()));
+			fitroom.setAddressRemarks(addressRemarks);
 			publish.addFitRoomListServer(fitroom);
+			addFitRoomInt(fitRoomName,frontphone,businessHour,memberLevel);
 			b=true;
 		} catch (Exception e) {
 			logger.error("addFitRoomList" + e.getMessage());
@@ -254,10 +258,9 @@ public class PublishInterface {
 			@Param("payway")String payway, @Param("time") Date time,@Param("price")int  price) {
 		List<FitRoomList> list=new ArrayList<>();
 		try {
+			
 			list=publish.searchFitRoomListServer(province,city,county);
-			for(FitRoomList fit:list){
-				System.out.println(fit.getCounty());
-			}
+			
 		} catch (Exception e) {
 			logger.error("searchFitRoomList" + e.getMessage());
 			e.printStackTrace();
@@ -266,4 +269,14 @@ public class PublishInterface {
 		return list;
 	}
 
+	
+	@At("/publishList")
+	@Ok("json")
+	public List<Publish> publishList(@Param("openid")String openid){
+		
+		
+		return publish.searchPublishList(openid);
+	}
+	
+	
 }

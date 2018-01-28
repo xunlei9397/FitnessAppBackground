@@ -1,23 +1,26 @@
 package com.fitness.server.search;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fitness.datastruts.FitRoom;
+import com.fitness.datastruts.Publish;
 
 public interface SearchMbean {
 
 	
 	/*
-	 * ËÑË÷¿Î³Ì£¬³ÊÏÖÔÚµØÍ¼ÉÏ·ûºÏµÄµã ×ø±êcoordinate
-	 * µã»÷±êÖ¾£¬µ×²¿À¸³ÊÏÖ±¾µê¡¢ÏêÇé¡¢µç»°
+	 * æœç´¢è¯¾ç¨‹ï¼Œå‘ˆç°åœ¨åœ°å›¾ä¸Šç¬¦åˆçš„ç‚¹ åæ ‡coordinate
+	 * ç‚¹å‡»æ ‡å¿—ï¼Œåº•éƒ¨æ å‘ˆç°æœ¬åº—ã€è¯¦æƒ…ã€ç”µè¯
 	 * 
-	 * ËÑË÷Õß½Ó¿Î°´Å¥  ÒÑ¿ª·¢£¬»¹Òª¿ª·¢ÃëÉ±³ÌĞò
-	 * ËÑË÷Õß½øĞĞÆÀ¼Û  ÒÑ¿ª·¢
+	 * æœç´¢è€…æ¥è¯¾æŒ‰é’®  å·²å¼€å‘ï¼Œè¿˜è¦å¼€å‘ç§’æ€ç¨‹åº
+	 * æœç´¢è€…è¿›è¡Œè¯„ä»·  å·²å¼€å‘
+	 * æœç´¢è¯¾ç¨‹ï¼ˆè¯¦ç»†æ¡ä»¶ï¼‰
 	 * */
 	List<String> coordinateServer(String object);
 	
 	List<FitRoom> queryFitRoomServer(String openid); 
 	
-	
+	List<Publish> searchResultServer(Map map);
 	
 }

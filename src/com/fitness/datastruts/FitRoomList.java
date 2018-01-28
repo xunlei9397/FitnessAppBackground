@@ -4,19 +4,20 @@ import java.util.List;
 
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Name;
+import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
 
 @Table("fitroomlist")
 public class FitRoomList {
 
-	//ĞèÒªÇ°¶Ë¿ª·¢Õß·µ»Ø¸Ã½¡Éí·¿µÄµØÀí×ø±ê
-	//ĞèÒªÊäÈëÕßÔÚÊäÈëÇ°²é¿´ÓĞÃ»ÓĞÕâ¼Ò½¡Éí·¿µÄÃû×Ö£¬È»ºóÔÙĞĞÊäÈë
+	//éœ€è¦å‰ç«¯å¼€å‘è€…è¿”å›è¯¥å¥èº«æˆ¿çš„åœ°ç†åæ ‡
+	//éœ€è¦è¾“å…¥è€…åœ¨è¾“å…¥å‰æŸ¥çœ‹æœ‰æ²¡æœ‰è¿™å®¶å¥èº«æˆ¿çš„åå­—ï¼Œç„¶åå†è¡Œè¾“å…¥
 	/*
-	 * Ê¡·İ province
-	 * ÊĞcity
-	 * Çø/ÏØ county
-	 * ½¡Éí·¿ÁĞ±ífitRoomName
-	 * ½¡Éí·¿id
+	 * çœä»½ province
+	 * å¸‚city
+	 * åŒº/å¿ county
+	 * å¥èº«æˆ¿åˆ—è¡¨fitRoomName
+	 * å¥èº«æˆ¿id
 	 * */
 	
 	private String province;
@@ -28,6 +29,9 @@ public class FitRoomList {
 	private String fitRoomName;
 	
 	private String addressRemarks;
+	
+	@One(target = FitRoom.class, field = "fitRoomName") 
+	private FitRoom fitroom;
 
 	@Name
 	private String fitRoomId;
@@ -76,6 +80,14 @@ public class FitRoomList {
 
 	public void setAddressRemarks(String addressRemarks) {
 		this.addressRemarks = addressRemarks;
+	}
+
+	public FitRoom getFitroom() {
+		return fitroom;
+	}
+
+	public void setFitroom(FitRoom fitroom) {
+		this.fitroom = fitroom;
 	}
 
 

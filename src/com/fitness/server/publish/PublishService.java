@@ -77,7 +77,7 @@ public class PublishService implements PublishMbean {
 
 
 	@Override
-	public List<String> deleteFitObjectServer(String[] object) {
+	public List<String> deleteFitObjectServer(String object) {
 		// TODO Auto-generated method stub
 		return publish.deleteFitObject(object);
 	}
@@ -107,6 +107,14 @@ public class PublishService implements PublishMbean {
 	public List<FitRoomList> searchFitRoomListServer (String province,String city, String county) {
 		// TODO Auto-generated method stub
 		return publish.searchFitRoomList(province,city,county);
+	}
+
+
+	@Override
+	public List<Publish> searchPublishList(String openid) {
+		// TODO Auto-generated method stub
+		
+		return publish.publishList(openid);
 	}
 
 	
