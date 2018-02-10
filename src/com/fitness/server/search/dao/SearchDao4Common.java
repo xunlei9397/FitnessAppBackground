@@ -50,9 +50,9 @@ public class SearchDao4Common  implements SearchDaoIf{
 	}
 
 
-	public List<FitRoom> queryFitRoom(String openid) {
-		Sql sql=Sqls.create("select * from FitRoom where openid=@openid");
-		sql.params().set("openid", openid);
+	public List<FitRoom> queryFitRoom(String fitRoomName) {
+		Sql sql=Sqls.create("select * from FitRoom where fitRoomName=@fitRoomName");
+		sql.params().set("fitRoomName", fitRoomName);
 		sql.setCallback(Sqls.callback.entities());
 		sql.setEntity(defaultdao.getEntity(FitRoom.class));
 		defaultdao.execute(sql);
@@ -62,10 +62,26 @@ public class SearchDao4Common  implements SearchDaoIf{
 
 	@Override
 	public List<Publish> searchResult(Map map) {
-		Sql sql=Sqls.create("select * from Publish where province=@province and "
-				+ "city=@city and county=@county and price>=@pricedown and "
-				+ "price<=@priceup and payway=@payway and DATE_FORMAT(time,'%Y-%m-%d')=@time and "
-				+ "object=@object");
+		Sql sql=Sqls.create("");
+		if(!"不限".equals(map.get("county"))&!"不限".equals(map.get("object"))) {
+			 sql=Sqls.create("select * from Publish where province=@province and "
+					+ "city=@city and county=@county and price>=@pricedown and "
+					+ "price<=@priceup and payway=@payway and DATE_FORMAT(time,'%Y-%m-%d')=@time and "
+					+ "object=@object");
+		}else  if("不限".equals(map.get("county"))&!"不限".equals(map.get("object"))) {
+			sql=Sqls.create("select * from Publish where province=@province and "
+					+ "city=@city  and price>=@pricedown and "
+					+ "price<=@priceup and payway=@payway and DATE_FORMAT(time,'%Y-%m-%d')=@time and "
+					+ "object=@object");
+		}else if(!"不限".equals(map.get("county"))&"不限".equals(map.get("object"))||map.get("object")==null) {
+			sql=Sqls.create("select * from Publish where province=@province and "
+					+ "city=@city and county=@county and price>=@pricedown and "
+					+ "price<=@priceup and payway=@payway and DATE_FORMAT(time,'%Y-%m-%d')=@time ");
+		}else  if("不限".equals(map.get("county"))&"不限".equals(map.get("object"))) {
+			sql=Sqls.create("select * from Publish where province=@province and "
+					+ "city=@city  and price>=@pricedown and "
+					+ "price<=@priceup and payway=@payway and DATE_FORMAT(time,'%Y-%m-%d')=@time ");
+		}
 		sql.params().set("province", map.get("province"));
 		sql.params().set("city", map.get("city"));
 		sql.params().set("county", map.get("county"));
@@ -77,7 +93,27 @@ public class SearchDao4Common  implements SearchDaoIf{
 		sql.setCallback(Sqls.callback.entities());
 		sql.setEntity(defaultdao.getEntity(Publish.class));
 		defaultdao.execute(sql);
-		return sql.getList(Publish.class);
+		List<Publish> pubList=new ArrayList<>();
+		for(Publish pub:sql.getList(Publish.class)) {
+			
+			PersonInfoTab p = defaultdao.fetch(PersonInfoTab.class,pub.getOpenid());
+			if(p==null) {
+				continue;
+			}
+			pub.setProvidername(p.getNickName());
+			
+			pubList.add(pub);
+		}
+		
+		return pubList;
+	}
+
+
+	@Override
+	public Map<String, Object> conditionInfo() {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 
 }

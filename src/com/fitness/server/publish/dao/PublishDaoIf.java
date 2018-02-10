@@ -20,6 +20,7 @@ public interface PublishDaoIf {
 	 * 为课程下拉列表提供课程名称
 	 * 写入课程名称到数据库
 	 * 查询发布者发布课程及接课人员
+	 * 删除发布的课程
 	 * */
 	
 	
@@ -69,5 +70,6 @@ public interface PublishDaoIf {
 	
 	List<Publish> publishList(String openid);
 	
-
+	void deletePub(String objectid);
+	
 }

@@ -19,8 +19,10 @@ public interface SearchMbean {
 	 * */
 	List<String> coordinateServer(String object);
 	
-	List<FitRoom> queryFitRoomServer(String openid); 
+	List<FitRoom> queryFitRoomServer(String fitRoomName); 
 	
 	List<Publish> searchResultServer(Map map);
+	
+	Map<String,Object> condition();
 	
 }

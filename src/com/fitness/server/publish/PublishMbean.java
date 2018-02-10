@@ -14,6 +14,7 @@ public interface PublishMbean {
 	 * 单独修改isReceived字段的方法
 	 * 单独修改YN字段的方法
 	 * 修改评价字段evalute的方法
+	 * 删除发布的替课计划
 	 * */
 	//发布课程召教练
 		void addObjectServer(Publish pub);
@@ -43,6 +44,7 @@ public interface PublishMbean {
 		
 		List<String> deleteFitObjectServer(String object);
 		
+		void deletePub(String objectid);
 		
 		/*
 		 *添加省份-区/县-健身房名称

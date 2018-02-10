@@ -1,7 +1,6 @@
 package com.fitness.Main;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.fitness.datastruts.FitRoom;
-import com.fitness.datastruts.Publish;
 import com.fitness.server.publish.PublishService;
 import com.fitness.server.search.SearchServer;
 
@@ -71,39 +69,52 @@ public class SearchInterface {
    public List<String> coordinateInt(@Param("object")String object){
 		
 	   List<String> coordinate = new ArrayList<>();
-	try {
-		object = new String(object.getBytes("ISO-8859-1"),"UTF-8");
-		coordinate=searchServer.coordinateServer(object);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		logger.error("coordinateInt"+e.getMessage());
-		e.printStackTrace();
-	}
-	   
+//	try {
+//		object = new String(object.getBytes("ISO-8859-1"),"UTF-8");
+//		
+//	} catch (Exception e) {
+//		// TODO Auto-generated catch block
+//		logger.error("coordinateInt"+e.getMessage());
+//		e.printStackTrace();
+//	}
+	coordinate=searchServer.coordinateServer(object);
 	   return coordinate;
    }
 	
    
    @At("/queryFitRoomInt")
    @Ok("json")
-   public List<FitRoom> queryFitRoomInt(@Param("openid")String openid){
+   public List<FitRoom> queryFitRoomInt(@Param("fitRoomName")String fitRoomName){
 	   
 	   List<FitRoom> fitRoom=new ArrayList<FitRoom>();
-	   try {
-		   fitRoom=searchServer.queryFitRoomServer(openid);
-		} catch (Exception e) {
-			logger.error("queryFitRoomServer:"+e.getMessage());
-			e.printStackTrace();
-		}
-	   
+//	   try {
+//		   fitRoomName=new String(fitRoomName.getBytes("ISO-8859-1"), "UTF-8");
+//		   
+//		} catch (Exception e) {
+//			logger.error("queryFitRoomServer:"+e.getMessage());
+//			e.printStackTrace();
+//		}
+	   fitRoom=searchServer.queryFitRoomServer(fitRoomName);
 	   return fitRoom;   
 	}
 	
    @At("/searchResult")
    @Ok("json")
-   public List<Publish> searchResult(@Param("province")String province, @Param("city")String city,@Param("county")String county,
+   public Map<String,Object> searchResult(@Param("province")String province, @Param("city")String city,@Param("county")String county,
 		   @Param("price")String  priceRange,@Param("payway")String payway, @Param("time")String time,@Param("object")String object){
 	   Map<String,Object> map=new HashMap<>();
+	   Map<String,Object> map2=new HashMap<>();
+//	   try {
+//		   province = new String(province.getBytes("ISO-8859-1"), "UTF-8");
+//		   city = new String(city.getBytes("ISO-8859-1"), "UTF-8");
+//		   county = new String(county.getBytes("ISO-8859-1"), "UTF-8");
+//		   priceRange = new String(priceRange.getBytes("ISO-8859-1"), "UTF-8");
+//		   payway = new String(payway.getBytes("ISO-8859-1"), "UTF-8");
+//		   time = new String(time.getBytes("ISO-8859-1"), "UTF-8");
+//		   object = new String(object.getBytes("ISO-8859-1"), "UTF-8");
+//	} catch (Exception e) {
+//		// TODO: handle exception
+//	}
 	   map.put("province", province);
 	   map.put("city", city);
 	   map.put("county", county);
@@ -113,10 +124,14 @@ public class SearchInterface {
 	   map.put("time", time);
 	   map.put("object", object);
 	   
-	   return searchServer.searchResultServer(map);
+	   map2.put("result", searchServer.searchResultServer(map));
+	   map2.put("condition", searchServer.condition());
+	   return map2;
    }
 	
-	
+
+   
+   
 	
 	
 	

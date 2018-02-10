@@ -117,5 +117,12 @@ public class PublishService implements PublishMbean {
 		return publish.publishList(openid);
 	}
 
+
+	@Override
+	public void deletePub(String objectid) {
+		// TODO Auto-generated method stub
+		 publish.deletePub(objectid);
+	}
+
 	
 }

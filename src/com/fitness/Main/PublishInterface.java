@@ -2,10 +2,9 @@ package com.fitness.Main;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
 
 import org.apache.log4j.Logger;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -25,6 +24,7 @@ public class PublishInterface {
 
 	@Inject("refer:publishService")
 	private PublishService publish;
+	
 	Logger logger = Logger.getLogger(PublishInterface.class.getName());
 
 //查出接课者的昵称、电话号码
@@ -49,14 +49,14 @@ public class PublishInterface {
 			pub.setOpenid(openid);
 			pub.setPhonenumber(phonenumber);
 			pub.setWechatnumber(wechatnumber);
-			object = new String(object.getBytes("ISO-8859-1"), "UTF-8");
-			province=new String(province.getBytes("ISO-8859-1"),"UTF-8");
-			city=new String(city.getBytes("ISO-8859-1"),"UTF-8");
-			county=new String(county.getBytes("ISO-8859-1"),"UTF-8");
-			fitroom=new String(fitroom.getBytes("ISO-8859-1"), "UTF-8");
-			remarks=new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
-			detailAddress=new String(detailAddress.getBytes("ISO-8859-1"), "UTF-8");
-			payway=new String(payway.getBytes("ISO-8859-1"), "UTF-8");
+//			object = new String(object.getBytes("ISO-8859-1"), "UTF-8");
+//			province=new String(province.getBytes("ISO-8859-1"),"UTF-8");
+//			city=new String(city.getBytes("ISO-8859-1"),"UTF-8");
+//			county=new String(county.getBytes("ISO-8859-1"),"UTF-8");
+//			fitroom=new String(fitroom.getBytes("ISO-8859-1"), "UTF-8");
+//			remarks=new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
+//			detailAddress=new String(detailAddress.getBytes("ISO-8859-1"), "UTF-8");
+//			payway=new String(payway.getBytes("ISO-8859-1"), "UTF-8");
 			
 			
 			
@@ -146,10 +146,11 @@ public class PublishInterface {
 		return b;
 	}
 
+	
 	@At("/fitObjectInt")
 	@Ok("json")
 	public List<String> fitObjectInt() {
-		List<String> list = new ArrayList<>();
+		List<String> list =new ArrayList<>();
 		try {
 			list = publish.fitObjectServer();
 		} catch (Exception e) {
@@ -158,9 +159,9 @@ public class PublishInterface {
 			e.printStackTrace();
 		}
 		return list;
-
 	}
 
+	
 	@At("/addFitObjectInt")
 	@Ok("json")
 	public List<String> addFitObjectInt(@Param("json") String[] json) {
@@ -276,6 +277,23 @@ public class PublishInterface {
 		
 		
 		return publish.searchPublishList(openid);
+	}
+	
+	
+	@At("/deletePublish")
+	@Ok("json")
+	public Boolean deletePublish(@Param("objectid") String objectid) {
+		Boolean b = false;
+		try {
+			publish.deletePub(objectid);
+			b = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("editYNInt" + e.getMessage());
+			e.printStackTrace();
+		}
+		return b;
+
 	}
 	
 	

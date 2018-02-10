@@ -16,9 +16,9 @@ public interface SearchDaoIf {
 	 * */
 	List<String> coordinate(String object);
 	
-	List<FitRoom> queryFitRoom(String openid); 
+	List<FitRoom> queryFitRoom(String fitRoomName); 
 	
 	List<Publish> searchResult(Map map);
 	
-	
+	Map<String,Object> conditionInfo();
 }

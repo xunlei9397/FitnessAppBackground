@@ -3,6 +3,7 @@ package com.fitness.datastruts;
 import java.util.Date;
 
 import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
 @Table("search")
 public class Search {
@@ -14,6 +15,7 @@ public class Search {
 	
 	/*
 	 * 搜索方的openid
+	 * 搜索方的昵称searchNickName
 	 * 要教的课程object
 	 * 要教的课程objectid
 	 * 时间time
@@ -24,6 +26,8 @@ public class Search {
 	 * */
 	
 	private String openid;
+
+	private String searchNickName;
 	
 	private String objectid;
 	
@@ -101,6 +105,14 @@ public class Search {
 
 	public void setObjectid(String objectid) {
 		this.objectid = objectid;
+	}
+
+	public String getSearchNickName() {
+		return searchNickName;
+	}
+
+	public void setSearchNickName(String searchNickName) {
+		this.searchNickName = searchNickName;
 	}
 
 	

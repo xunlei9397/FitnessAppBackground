@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Many;
 import org.nutz.dao.entity.annotation.Name;
@@ -19,6 +20,7 @@ public class Publish {
 	/*@author("liuhaijian")
 	 * 此刻发布课程的objectid：openid_yyyymmddhh_24miss格式的时间组成
 	 * 发布方的openid
+	 * 发布者昵称providername
 	 * 微信号 wechatnumber,让使用者自己填，可不填
 	 * 电话号phonenumber，让使用者自己填，一定要填
 	 * 课程object
@@ -42,46 +44,57 @@ public class Publish {
 	 * */
 	@Name
 	private String objectid;
-	
+	@Column
 	private String openid;
 	
+	private String providername;
+	@Column
 	private String wechatnumber;
-	
+	@Column
 	private String phonenumber;
-	
+	@Column
 	private String object;
-	
+	@Column
 	private Date time;
 	
-	
+	@Column
 	private String province;
-	
+	@Column
 	private String county;
-	
+	@Column
 	private String city;
-	
+	@Column
 	private int price;
-	
+	@Column
 	private String payway;
-	
+	@Column
 	private String fitroom;
-	
+	@Column
 	private String detailAddress;
-	
+	@Column
 	private String remarks;
-	
+	@Column
 	private String isReceived;
-	
+	@Column
 	private String YN;
-	
+	@Column
 	private int evalute;
-	
+	@Column
 	private double pointX;
-	
+	@Column
 	private double pointY;
-	
+	@Column
 	private int mapClass;
+	@Column
+	private Date  vertime=new Date();
 	
+	private boolean disabled=false;
+	
+	
+	private boolean hidden=false;
+	
+	
+
 	@Many(target = Search.class, field = "objectid")
 	private List<Search> receiver;
 
@@ -256,7 +269,37 @@ public class Publish {
 		this.receiver = receiver;
 	}
 
-	
+	public String getProvidername() {
+		return providername;
+	}
+
+	public void setProvidername(String providername) {
+		this.providername = providername;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public Date getVertime() {
+		return vertime;
+	}
+
+	public void setVertime(Date vertime) {
+		this.vertime = vertime;
+	}
 	
 	
 	
